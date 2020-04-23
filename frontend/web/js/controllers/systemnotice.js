@@ -203,11 +203,21 @@ myApp.controller("systemnoticeCtrl", function ($scope, $http, $filter) {
             name: "",
             icon: true
         };
-        $scope.input_list.push(obj);
-        $scope.input_list[index].icon = false;
+
+        $scope.input_list.splice((index + 1), 0, {
+            name: '',
+            icon: false
+        })
     };
     $scope.del_input = function (index) {
-        $scope.input_list.splice(index, 1);
+        if ($scope.input_list.length == 1) {
+            $scope.input_list[0].name = ''
+            return false
+        } else if ($scope.input_list[index].name != '') {
+            $scope.input_list[index].name = '';
+        } else {
+            $scope.input_list.splice(index, 1);
+        }
     };
 
     $scope.init();
