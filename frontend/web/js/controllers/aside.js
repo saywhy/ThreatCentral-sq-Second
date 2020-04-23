@@ -120,7 +120,7 @@ myApp.controller("asideCtrl", function($scope,$http) {
         let per_id = JSON.parse(localStorage.getItem('pemission_id'));
         let icd = $scope.indexCode;
 
-        console.log(icd)
+        //console.log(icd)
         if(icd == 1){
             if(per_id.includes('16')
                 || per_id.includes('24')

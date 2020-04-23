@@ -10,6 +10,10 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             // endDate: moment(),
             endDate: ''
         };
+        $scope.edit_item = {
+            old_name:'',
+            old_id:''
+        };
         $scope.seach_data = {
             source: '',
             stauts: '',
@@ -835,8 +839,12 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     change: function (event, ui) {
                         let length = $scope.edit_item.tag[index].label_id_attr.length;
                         if (length == 0) {
-                            $(this).val('');
+                            //$(this).val('');
                             zeroModal.error('您未选中触发的标签名称列表，请选择！');
+                            // console.log($scope.edit_item.tag)
+                            $(this).val($scope.edit_item.old_name)
+                            $scope.edit_item.tag[index].name = $scope.edit_item.old_name;
+                            $scope.edit_item.tag[index].label_id_attr = $scope.edit_item.old_id;
                             return false;
                         }
                     },
@@ -845,6 +853,9 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                         $scope.edit_item.tag[index].name = '';
                     },
                 }).focus(function () {
+                    $scope.edit_item.old_name = $scope.edit_item.tag[index].name;
+                    $scope.edit_item.old_id = $scope.edit_item.tag[index].label_id_attr;
+
                     $(this).val('');
                     $scope.edit_item.tag[index].label_id_attr = [];
                     $scope.edit_item.tag[index].name = '';
