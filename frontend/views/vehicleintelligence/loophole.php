@@ -281,13 +281,13 @@ $this->title = '漏洞情报';
         <li class="item">
           <img class="i_img" src="/images/loophole/sp10.png" alt="" />
           <h4 class="title">CVSS v2：</h4>
-          <span class="stance">{{base_data.cvss_v2}}<span style="margin-left:10px;"
+          <span class="stance">{{base_data.cvss_v2==''?'N/A':base_data.cvss_v2}}<span style="margin-left:10px;"
               ng-hide="base_data.cvss_v2== ''">Critical</span></span>
         </li>
         <li class="item">
           <img class="i_img" src="/images/loophole/sp10.png" alt="" />
           <h4 class="title">CVSS v3：</h4>
-          <span class="stance">{{base_data.cvss_v3}}<span style="margin-left:10px;"
+          <span class="stance">{{base_data.cvss_v3==''?'N/A':base_data.cvss_v3}}<span style="margin-left:10px;"
               ng-hide="base_data.cvss_v3== ''">High</span></span>
         </li>
         <li class="item">
