@@ -764,6 +764,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     select: function (event, ui) {
                         $scope.add_item.tag[index].label_id_attr.push(ui.item.id);
                         $scope.add_item.tag[index].name = ui.item.label;
+                        $(this).blur();
                     },
                     change: function (event, ui) {
                         let length = $scope.add_item.tag[index].label_id_attr.length;
@@ -787,6 +788,14 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 }).data("ui-autocomplete")._renderItem = function (ul, item) {
                     return $("<li>" + item.label + "</li>").appendTo(ul);
                 };
+
+
+                let that = this;
+
+                $('#label_auto_complate_' + index +'+.select_down_icon').click(function () {
+                    console.log('4444')
+                    $(that).focus();
+                })
             })
         }, 0)
     };
@@ -821,6 +830,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     select: function (event, ui) {
                         $scope.edit_item.tag[index].label_id_attr.push(ui.item.id);
                         $scope.edit_item.tag[index].name = ui.item.label;
+                        $(this).blur();
                     },
                     change: function (event, ui) {
                         let length = $scope.edit_item.tag[index].label_id_attr.length;
@@ -843,6 +853,13 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 }).data("ui-autocomplete")._renderItem = function (ul, item) {
                     return $("<li>" + item.label + "</li>").appendTo(ul);
                 };
+
+                let that = this;
+
+                $('#edit_auto_complate_' + index +'+.select_down_icon').click(function () {
+                    console.log('4444')
+                    $(that).focus();
+                })
 
             })
 

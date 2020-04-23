@@ -996,11 +996,9 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
                 let datas = $scope.add_item.tag[index].tag_name_list;
 
-
                 datas = datas.filter(function (item) {
                     return item.id != null;
                 });
-
 
                 let new_label = datas.map(data => {
                     return {
@@ -1015,11 +1013,13 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     source: new_label,
                     delay: 100,
                     max: 10,
+                    autoFocus: false,
                     minLength: 0,
                     autoFill: true,
                     select: function (event, ui) {
                         $scope.add_item.tag[index].label_id_attr.push(ui.item.id);
                         $scope.add_item.tag[index].name = ui.item.label;
+                        $(this).blur();
                     },
                     change: function (event, ui) {
                         let length = $scope.add_item.tag[index].label_id_attr.length;
@@ -1030,7 +1030,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         }
                     },
                     search: function (event, ui) {
-                        //console.log('search')
                         $scope.add_item.tag[index].label_id_attr = [];
                         $scope.add_item.tag[index].name = '';
                     },
@@ -1043,6 +1042,14 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 }).data("ui-autocomplete")._renderItem = function (ul, item) {
                     return $("<li>" + item.label + "</li>").appendTo(ul);
                 };
+
+
+                let that = this;
+
+                $('#label_auto_complate_' + index +'+.select_down_icon').click(function () {
+                    console.log('4444')
+                    $(that).focus();
+                })
             })
         }, 0)
     };
@@ -1054,7 +1061,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             $('.label_edit_complate').each(function (index, elem) {
 
                 let datas = $scope.edit_item.tag[index].tag_name_list;
-
 
                 datas = datas.filter(function (item) {
                     return item.id != null;
@@ -1078,6 +1084,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     select: function (event, ui) {
                         $scope.edit_item.tag[index].label_id_attr.push(ui.item.id);
                         $scope.edit_item.tag[index].name = ui.item.label;
+                        $(this).blur();
                     },
                     change: function (event, ui) {
                         let length = $scope.edit_item.tag[index].label_id_attr.length;
@@ -1100,6 +1107,14 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 }).data("ui-autocomplete")._renderItem = function (ul, item) {
                     return $("<li>" + item.label + "</li>").appendTo(ul);
                 };
+
+
+                let that = this;
+
+                $('#edit_auto_complate_' + index +'+.select_down_icon').click(function () {
+                    console.log('4444')
+                    $(that).focus();
+                })
 
             })
 
