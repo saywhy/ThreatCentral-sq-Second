@@ -10,6 +10,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             // endDate: moment(),
             endDate: ''
         };
+        $scope.org_num = 0;
+
         $scope.edit_item = {
             old_name: '',
             old_id: ''
@@ -612,8 +614,10 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     $scope.pop_show.edit = true;
                     $scope.get_page_show = false;
 
-
-                    $scope.init_edit_complete();
+                    if( $scope.org_num == 0){
+                        $scope.org_num ++;
+                        $scope.init_edit_complete();
+                    }
                 }
             },
             function () {}
