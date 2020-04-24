@@ -640,6 +640,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         $scope.org_num ++;
                         $scope.init_edit_complete();
                     }
+
                 }
             },
             function () {}
@@ -1099,6 +1100,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                             //$(this).val('');
                             zeroModal.error('您未选中触发的标签名称列表，请选择！');
                             // console.log($scope.edit_item.tag)
+                            $(this).val($scope.edit_item.old_name);
                             $scope.edit_item.tag[index].name = $scope.edit_item.old_name;
                             $scope.edit_item.tag[index].label_id_attr = $scope.edit_item.old_id;
                             return false;
