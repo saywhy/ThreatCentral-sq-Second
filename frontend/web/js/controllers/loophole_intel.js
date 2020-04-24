@@ -11,8 +11,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             endDate: ''
         };
         $scope.edit_item = {
-            old_name:'',
-            old_id:''
+            old_name: '',
+            old_id: ''
         };
         $scope.seach_data = {
             source: '',
@@ -796,7 +796,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
 
                 let that = this;
 
-                $('#label_auto_complate_' + index +'+.select_down_icon').click(function () {
+                $('#label_auto_complate_' + index + '+.select_down_icon').click(function () {
                     console.log('4444')
                     $(that).focus();
                 })
@@ -867,7 +867,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
 
                 let that = this;
 
-                $('#edit_auto_complate_' + index +'+.select_down_icon').click(function () {
+                $('#edit_auto_complate_' + index + '+.select_down_icon').click(function () {
                     console.log('4444')
                     $(that).focus();
                 })
@@ -1258,11 +1258,16 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 $scope.pop_show.add_level_list = false;
                 break;
             case 'tag_category':
-                angular.forEach($scope.add_item.tag, function (key, value) {
-                    if (value == index) {
-                        key.category_ul = false;
-                    }
-                })
+                $scope.index_add = index
+                setTimeout(function () {
+                    angular.forEach($scope.add_item.tag, function (key, value) {
+                        if (value == $scope.index_add) {
+                            key.category_ul = false;
+                        }
+                    })
+                    $scope.$apply(); //需要手动刷新
+                }, 200)
+
                 break;
             case 'tag_name':
                 angular.forEach($scope.add_item.tag, function (key, value) {
@@ -1528,11 +1533,15 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 $scope.pop_show.edit_level_list = false;
                 break;
             case 'tag_category':
-                angular.forEach($scope.edit_item.tag, function (key, value) {
-                    if (value == index) {
-                        key.category_ul = false;
-                    }
-                })
+                $scope.index_edit = index
+                setTimeout(function () {
+                    angular.forEach($scope.edit_item.tag, function (key, value) {
+                        if (value == $scope.index_edit) {
+                            key.category_ul = false;
+                        }
+                    })
+                    $scope.$apply(); //需要手动刷新
+                }, 200)
                 break;
             case 'tag_name':
                 angular.forEach($scope.edit_item.tag, function (key, value) {

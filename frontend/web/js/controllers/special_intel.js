@@ -1,14 +1,14 @@
 var myApp = angular.module("myApp", ["ngSanitize"]);
 myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.init = function () {
-       // console.log(555);
+        // console.log(555);
         $scope.searchTime = {
             startDate: '',
             endDate: ''
         };
         $scope.edit_item = {
-            old_name:'',
-            old_id:''
+            old_name: '',
+            old_id: ''
         };
         $scope.seach_data = {
             source: '',
@@ -1047,7 +1047,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     return $("<li>" + item.label + "</li>").appendTo(ul);
                 };
                 let that = this;
-                $('#label_auto_complate_' + index +'+.select_down_icon').click(function () {
+                $('#label_auto_complate_' + index + '+.select_down_icon').click(function () {
                     console.log('4444')
                     $(that).focus();
                 })
@@ -1094,7 +1094,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         if (length == 0) {
                             //$(this).val('');
                             zeroModal.error('您未选中触发的标签名称列表，请选择！');
-                           // console.log($scope.edit_item.tag)
+                            // console.log($scope.edit_item.tag)
                             $(this).val($scope.edit_item.old_name)
                             $scope.edit_item.tag[index].name = $scope.edit_item.old_name;
                             $scope.edit_item.tag[index].label_id_attr = $scope.edit_item.old_id;
@@ -1121,7 +1121,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
                 let that = this;
 
-                $('#edit_auto_complate_' + index +'+.select_down_icon').click(function () {
+                $('#edit_auto_complate_' + index + '+.select_down_icon').click(function () {
                     $(that).focus();
                 })
 
@@ -1292,11 +1292,19 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 $scope.pop_show.add_level_list = false;
                 break;
             case 'tag_category':
-                angular.forEach($scope.add_item.tag, function (key, value) {
-                    if (value == index) {
-                        key.category_ul = false;
-                    }
-                })
+                $scope.index_s = index
+                setTimeout(function () {
+                    console.log($scope.index_s);
+                    angular.forEach($scope.add_item.tag, function (key, value) {
+                        if (value == $scope.index_s) {
+                            console.log('1111');
+                            key.category_ul = false;
+                            console.log('2222');
+                        }
+                    })
+                    $scope.$apply(); //需要手动刷新
+                    console.log($scope.add_item.tag);
+                }, 200)
                 break;
             case 'tag_name':
                 angular.forEach($scope.add_item.tag, function (key, value) {
@@ -1542,11 +1550,16 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 $scope.pop_show.edit_level_list = false;
                 break;
             case 'tag_category':
-                angular.forEach($scope.edit_item.tag, function (key, value) {
-                    if (value == index) {
-                        key.category_ul = false;
-                    }
-                })
+
+                $scope.index_edit = index
+                setTimeout(function () {
+                    angular.forEach($scope.edit_item.tag, function (key, value) {
+                        if (value == $scope.index_edit) {
+                            key.category_ul = false;
+                        }
+                    })
+                    $scope.$apply(); //需要手动刷新
+                }, 200)
                 break;
             case 'tag_name':
                 angular.forEach($scope.edit_item.tag, function (key, value) {
