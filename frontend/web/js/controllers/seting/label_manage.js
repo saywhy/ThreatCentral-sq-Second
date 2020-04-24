@@ -895,7 +895,7 @@ myApp.controller("labelCtrl", function ($scope, $http, $timeout, $document) {
                     $scope.label_data = labelAttr;
                     console.log($scope.label_data);
                     angular.forEach($scope.label_data, function (item) {
-                        console.log(item.name);
+                        //console.log(item.name);
                         item.name = $scope.escape2Html(item.name)
                         angular.forEach(item.label, function (key) {
                             key.label_name = $scope.escape2Html(key.label_name)
@@ -911,6 +911,7 @@ myApp.controller("labelCtrl", function ($scope, $http, $timeout, $document) {
         );
     };
     $scope.escape2Html = function (str) {
+        //console.log(str)
         var arrEntities = {
             'lt': '<',
             'gt': '>',
@@ -918,9 +919,11 @@ myApp.controller("labelCtrl", function ($scope, $http, $timeout, $document) {
             'amp': '&',
             'quot': '"'
         };
-        return str.replace(/&(lt|gt|nbsp|amp|quot);/ig, function (all, t) {
-            return arrEntities[t];
-        });
+        if(str != null){
+            return str.replace(/&(lt|gt|nbsp|amp|quot);/ig, function (all, t) {
+                return arrEntities[t];
+            });
+        }
     }
 
     //拖拽与置顶初始化
