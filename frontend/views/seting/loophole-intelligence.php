@@ -61,8 +61,7 @@ $this->title = '漏洞情报管理';
       <button class="button_add" ng-click="add_loop_box()">情报录入</button>
     </div>
   </div>
-         <pre style="flex:1" id="pre_box" ng-bind-html='text'>
-                </pre>
+
   <!-- 标签列表展示 -->
   <div class="vehicle_search_country">
     <ul class="search_country">
