@@ -636,10 +636,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     }
                     $scope.get_page_show = false;
 
-                    if( $scope.org_num == 0){
-                        $scope.org_num ++;
-                        $scope.init_edit_complete();
-                    }
+                    $scope.init_edit_complete();
 
                 }
             },
@@ -996,13 +993,32 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.get_lab_list();
     };
 
-    $scope.my_num = 0;
+    $scope.my_add_num = 0;
+    $scope.my_edit_num = 0;
     //auto-complete初始化(新增)
     $scope.init_auto_complete = function () {
 
         setTimeout(function () {
 
+            if($scope.my_add_num > 0){
+
+                $('.label_auto_complate').each(function (index, elem) {
+                    let instance = $('#label_auto_complate_' + index).autocomplete('instance');
+                    if(instance){
+                        $('#label_auto_complate_' + index).unbind('focus').unbind('blur').autocomplete('destroy');
+                    }
+                });
+
+            }
+            $scope.my_add_num ++;
+
+            let flag_add = false;
+
             $('.label_auto_complate').each(function (index, elem) {
+
+                $scope.add_item.tag.filter((items) => {
+                    return Object.assign(items,{change_name:items.name,change_attr_id:items.label_id_attr})
+                })
 
                 let datas = $scope.add_item.tag[index].tag_name_list;
 
@@ -1029,9 +1045,15 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     select: function (event, ui) {
                         $scope.add_item.tag[index].label_id_attr.push(ui.item.id);
                         $scope.add_item.tag[index].name = ui.item.label;
+
+                        $scope.add_item.tag[index].change_name = ui.item.label;
+                        $scope.add_item.tag[index].change_attr_id = [ui.item.id];
+
+                        flag_add = true;
+
                         $(this).blur();
                     },
-                    change: function (event, ui) {
+                    /*change: function (event, ui) {
                         let length = $scope.add_item.tag[index].label_id_attr.length;
                         if (length == 0) {
                             $(this).val('');
@@ -1042,13 +1064,37 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     search: function (event, ui) {
                         $scope.add_item.tag[index].label_id_attr = [];
                         $scope.add_item.tag[index].name = '';
-                    },
+                    },*/
                 }).focus(function () {
-                    $(this).val('');
-                    $scope.add_item.tag[index].label_id_attr = [];
-                    $scope.add_item.tag[index].name = '';
-                    $(this).autocomplete("search", "");
+
+                    console.log('我是触发')
+                    $scope.add_item.old_name = $scope.add_item.tag[index].name;
+                    $scope.add_item.old_id = $scope.add_item.tag[index].label_id_attr;
+                    flag_add = false;
+                    $(this).autocomplete("search",$scope.add_item.old_name);
                     return false;
+
+
+                }).blur(function () {
+                    var myInput = document.getElementById("label_auto_complate_" + index);
+                    if (myInput == document.activeElement) {
+                        console.log('11112222');
+                    }else{
+                        if(!flag_add){
+                            if(!$scope.add_item.tag[index].name == ''){
+                                zeroModal.error('您未选中触发的标签名称列表，请选择！');
+                                $(this).val($scope.add_item.tag[index].change_name);
+                                $scope.add_item.tag[index].name = $scope.add_item.tag[index].change_name;
+                                $scope.add_item.tag[index].label_id_attr = $scope.add_item.tag[index].change_attr_id;
+                            }else {
+                                $(this).val('');
+                                $scope.add_item.tag[index].name = '';
+                                $scope.add_item.tag[index].label_id_attr = [];
+                            }
+                            flag_add = false;
+                            return false;
+                        }
+                    }
                 }).data("ui-autocomplete")._renderItem = function (ul, item) {
                     return $("<li>" + item.label + "</li>").appendTo(ul);
                 };
@@ -1057,25 +1103,24 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     $(that).focus();
                 })
             })
-        }, 0)
+        }, 200)
     };
     //auto-complete初始化(编辑)
     $scope.init_edit_complete = function () {
 
         setTimeout(function () {
 
-            if($scope.my_num > 0){
+            if($scope.my_edit_num > 0){
+
                 $('.label_edit_complate').each(function (index, elem) {
-                    console.log(index)
-                    console.log($('#edit_auto_complate_' + index).autocomplete('instance'))
                     let instance = $('#edit_auto_complate_' + index).autocomplete('instance');
                     if(instance){
-                        $('#edit_auto_complate_' + index).autocomplete('destroy');
+                        $('#edit_auto_complate_' + index).unbind('focus').unbind('blur').autocomplete('destroy');
                     }
                 });
-            }
 
-            $scope.my_num ++ ;
+            }
+            $scope.my_edit_num ++;
 
             let flag_edit = false;
 
@@ -1121,36 +1166,32 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                         $scope.edit_item.tag[index].label_id_attr = [];
                         $scope.edit_item.tag[index].name = '';
                     },*/
-                })
-                    .focus(function () {
+                }).focus(function () {
                     console.log('我是触发')
                     $scope.edit_item.old_name = $scope.edit_item.tag[index].name;
                     $scope.edit_item.old_id = $scope.edit_item.tag[index].label_id_attr;
-                   // console.log($scope.edit_item.tag[index].name)
-                    /*$(this).val('');
-                    $scope.edit_item.tag[index].label_id_attr = [];
-                    $scope.edit_item.tag[index].name = '';*/
                     flag_edit = false;
-                    $(this).autocomplete("search");
+                    $(this).autocomplete("search",$scope.edit_item.old_name);
                     return false;
                 }).blur(function () {
-
-                    console.log('*********')
-                    console.log(flag_edit)
-                   // $scope.$apply();
                     var myInput = document.getElementById("edit_auto_complate_" + index);
                     if (myInput == document.activeElement) {
                         console.log('11112222');
                     }else{
                         if(!flag_edit){
-                            zeroModal.error('您未选中触发的标签名称列表，请选择！');
-                            //console.log($scope.edit_item.tag)
-                            //console.log($scope.edit_item.old_name);
+                            if(!$scope.edit_item.tag[index].name == ''){
+                                zeroModal.error('您未选中触发的标签名称列表，请选择！');
+                                $(this).val($scope.edit_item.tag[index].change_name);
+                                $scope.edit_item.tag[index].name = $scope.edit_item.tag[index].change_name;
+                                $scope.edit_item.tag[index].label_id_attr = $scope.edit_item.tag[index].change_attr_id;
+                            }else {
+                                $(this).val('');
+                                $scope.edit_item.tag[index].name = '';
+                                $scope.edit_item.tag[index].label_id_attr = [];
 
-                            $(this).val($scope.edit_item.tag[index].change_name);
-                            $scope.edit_item.tag[index].name = $scope.edit_item.tag[index].change_name;
-                            $scope.edit_item.tag[index].label_id_attr = $scope.edit_item.tag[index].change_attr_id;
-
+                                /*$scope.edit_item.old_name = '';
+                                $scope.edit_item.old_id = [];*/
+                            }
                             flag_edit = false;
                             return false;
                         }
