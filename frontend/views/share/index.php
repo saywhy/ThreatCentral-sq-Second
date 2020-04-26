@@ -56,6 +56,8 @@ $this->title = '情报共享';
             </div>
         </div>
     </div>
+    <div ng-if="list.length!=0">
     <button class="btn_more" ng-click="add_more()" ng-if="btn_show" ng-bind="btn_text">加载更多</button>
+    </div>
 </section>
 <script src="/js/controllers/share.js"></script>
