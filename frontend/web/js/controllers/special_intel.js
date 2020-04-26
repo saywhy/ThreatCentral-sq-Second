@@ -1071,7 +1071,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     $scope.add_item.old_name = $scope.add_item.tag[index].name;
                     $scope.add_item.old_id = $scope.add_item.tag[index].label_id_attr;
                     flag_add = false;
-                    $(this).autocomplete("search",$scope.add_item.old_name);
+                    $(this).autocomplete("search",'');
                     return false;
 
 
@@ -1168,10 +1168,11 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     },*/
                 }).focus(function () {
                     console.log('我是触发')
+                    //$(this).val('')
                     $scope.edit_item.old_name = $scope.edit_item.tag[index].name;
                     $scope.edit_item.old_id = $scope.edit_item.tag[index].label_id_attr;
                     flag_edit = false;
-                    $(this).autocomplete("search",$scope.edit_item.old_name);
+                    $(this).autocomplete("search",'');
                     return false;
                 }).blur(function () {
                     var myInput = document.getElementById("edit_auto_complate_" + index);

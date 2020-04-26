@@ -340,7 +340,7 @@ $this->title = '漏洞情报管理';
                 <div class="tag_item tag_item_{{$index}}">
                   <input autocomplete="off" type="text" placeholder="请选择标签名称" ng-model="item.name"
                     class="item_right_input label_auto_complate" id="label_auto_complate_{{$index}}">
-                  <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="" />
+                  <!--<img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="" />-->
                 </div>
 
                 <div class="add_icon_box">
@@ -576,7 +576,7 @@ $this->title = '漏洞情报管理';
                 <div class="tag_item edit_item_{{$index}}">
                   <input autocomplete="off" type="text" placeholder="请选择标签名称" ng-model="item.name"
                     class="item_right_input label_edit_complate" id="edit_auto_complate_{{$index}}">
-                  <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="" />
+                  <!--<img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="" />-->
                 </div>
 
                 <div class="add_icon_box">

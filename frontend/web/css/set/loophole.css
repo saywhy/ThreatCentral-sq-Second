@@ -820,6 +820,13 @@ select {
   background-color: #0070FF
 }
 
+.label_edit_complate,
+.label_auto_complate, .item_right_input:focus{
+  background-image: url("../../images/set/label_triangle_down.png");
+  background-repeat: no-repeat;
+  background-position: 96%;
+}
+
 /**********************/
 .pagination_info {
   padding: 0px;
