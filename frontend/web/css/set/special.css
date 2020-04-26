@@ -860,6 +860,7 @@ th:nth-last-child(1) {
   background-image: url("../../images/set/label_triangle_down.png");
   background-repeat: no-repeat;
   background-position: 96%;
+  cursor: pointer;
 }
 
 
