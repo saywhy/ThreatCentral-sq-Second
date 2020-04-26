@@ -1126,7 +1126,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     console.log('我是触发')
                     $scope.edit_item.old_name = $scope.edit_item.tag[index].name;
                     $scope.edit_item.old_id = $scope.edit_item.tag[index].label_id_attr;
-
                    // console.log($scope.edit_item.tag[index].name)
                     /*$(this).val('');
                     $scope.edit_item.tag[index].label_id_attr = [];
@@ -1138,7 +1137,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
                     console.log('*********')
                     console.log(flag_edit)
-                    $scope.$apply();
+                   // $scope.$apply();
                     var myInput = document.getElementById("edit_auto_complate_" + index);
                     if (myInput == document.activeElement) {
                         console.log('11112222');
@@ -1171,17 +1170,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
         }, 200)
     };
-
-    $scope.destroy_edit_complete = function () {
-       /*setTimeout(function () {
-
-       },0)*/
-        $('.label_edit_complate').each(function (index, elem) {
-            // $(this).autocomplete('destroy');
-            $('#edit_auto_complate_' + index).autocomplete('destroy');
-        });
-      //  $('.edit_item_all').$('.label_edit_complate').autocomplete('destroy');
-    }
 
     $scope.edit_sure = function () {
 
@@ -1722,8 +1710,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     icon: true,
                     label_id_attr: []
                 })
-               // $scope.init_edit_complete();
-
+                $scope.init_edit_complete();
                 break;
             default:
                 break;
