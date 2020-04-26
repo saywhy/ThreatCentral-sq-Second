@@ -563,7 +563,7 @@ $this->title = '行业情报管理';
                     </li>
                   </ul>
                 </div>
-                <div class="tag_item edit_item_{{$index}}">
+                <div class="tag_item edit_item_all edit_item_{{$index}}">
                   <input type="text" placeholder="请选择标签名称" ng-model="item.name"
                     class="item_right_input label_edit_complate" id="edit_auto_complate_{{$index}}">
                   <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="" />
