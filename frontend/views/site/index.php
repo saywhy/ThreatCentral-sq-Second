@@ -373,7 +373,6 @@ $this->title = '概览';
     .loophole_li {
         border-radius: 4px;
         padding: 16px 18px;
-        height: 52px;
         display: inline-block;
         margin: 0 8px 8px 0;
         color: #fff;
