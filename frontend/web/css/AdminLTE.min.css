@@ -328,7 +328,7 @@ a:focus {
   width: 230px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 0 15px;
-  font-weight: 300;
+  font-weight: 500;
   overflow: hidden
 }
 
@@ -358,7 +358,7 @@ a:focus {
   font-size: 15px;
   display: inline-block;
   padding-left: 4px;
-  font-weight: 300
+  font-weight: 500
 }
 
 .content-header>.breadcrumb {
@@ -3523,7 +3523,7 @@ table.text-center th {
   margin-top: 0;
   margin-bottom: 5px;
   font-size: 25px;
-  font-weight: 300;
+  font-weight: 500;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2)
 }
 
@@ -3558,7 +3558,7 @@ table.text-center th {
   margin-top: 5px;
   margin-bottom: 5px;
   font-size: 25px;
-  font-weight: 300
+  font-weight: 500
 }
 
 .widget-user-2 .widget-user-desc {
@@ -3665,7 +3665,7 @@ table.text-center th {
   font-size: 35px;
   text-align: center;
   margin-bottom: 25px;
-  font-weight: 300
+  font-weight: 500
 }
 
 .lockscreen-logo a {
@@ -3731,7 +3731,7 @@ table.text-center th {
   font-size: 35px;
   text-align: center;
   margin-bottom: 25px;
-  font-weight: 300
+  font-weight: 500
 }
 
 .login-logo a,
@@ -3797,7 +3797,7 @@ table.text-center th {
 .error-page>.headline {
   float: left;
   font-size: 100px;
-  font-weight: 300
+  font-weight: 500
 }
 
 @media (max-width:991px) {
@@ -3819,7 +3819,7 @@ table.text-center th {
 }
 
 .error-page>.error-content>h3 {
-  font-weight: 300;
+  font-weight: 500;
   font-size: 25px
 }
 
@@ -4818,7 +4818,7 @@ table.text-center th {
 
 .fc-day-number {
   font-size: 20px;
-  font-weight: 300;
+  font-weight: 500;
   padding-right: 10px
 }
 
@@ -5534,7 +5534,7 @@ table.text-center th {
 }
 
 .font-light {
-  font-weight: 300
+  font-weight: 500
 }
 
 .user-block:before,
