@@ -49,8 +49,10 @@ myApp.controller("PrototypeCtrl", function ($scope, $http, $filter) {
                         function success(rsp) {
                             if (rsp.data.result) {
                                 console.log("cyberhunt");
-                                console.log(rsp.data.result);
+
                                 $scope.cyberhunt_data = rsp.data.result;
+                                console.log($scope.cyberhunt_data);
+                                console.log($scope.full_data);
                                 angular.forEach($scope.full_data, function (item) {
                                     if (item != null) {
                                         angular.forEach($scope.cyberhunt_data, function (ele) {
