@@ -171,6 +171,10 @@ $this->title = '情报源管理';
         <div ng-if="select.model=='1'">
             <div class="row">
                 <div class="col-md-3 item_box" ng-repeat="item in source_data.red | source_filter_red"
+                  ng-if="item.name.toUpperCase() !='MobileMaliciousHash_SHA1'.toUpperCase()&&
+                  item.name.toUpperCase() !='MaliciousHash_SHA1'.toUpperCase()&&
+                  item.name.toUpperCase() !='MaliciousHash_SHA256'.toUpperCase()&&
+                  item.name.toUpperCase() !='MobileMaliciousHash_SHA256'.toUpperCase() "
                ng-mousedown="skipDown($event)" ng-mouseup="skipUp($event,item)" >
                     <!-- <div class="col-md-3 item_box" ng-repeat="item in source_data.red track by $index"> -->
                     <div class="item">

@@ -34,9 +34,9 @@ myApp.controller("searchCtrl", function ($scope, $http, $filter, $sce) {
         $scope.level = '';
         //漏洞级别
         $scope.custom_level = [{
-            num: '',
-            status: '漏洞级别'
-        },
+                num: '',
+                status: '漏洞级别'
+            },
             {
                 num: '高',
                 status: '高'
@@ -48,7 +48,8 @@ myApp.controller("searchCtrl", function ($scope, $http, $filter, $sce) {
             {
                 num: '低',
                 status: '低'
-            }];
+            }
+        ];
 
         $scope.custom_edit_data = {};
         $scope.custom_list_get(1);
@@ -149,6 +150,7 @@ myApp.controller("searchCtrl", function ($scope, $http, $filter, $sce) {
                         } else {
                             $scope.reputation_res_if = true;
                             $scope.reputation_res = data.data.data.result;
+                            console.log($scope.reputation_res);
                             if ($scope.reputation_res.hoohoolab_files) {
                                 $scope.reputation_res_files = true;
                             }
@@ -390,7 +392,7 @@ myApp.controller("searchCtrl", function ($scope, $http, $filter, $sce) {
     };
 
     //一键导出
-    $scope.reputation_exp = function(){
+    $scope.reputation_exp = function () {
         window.open('/intelligence/export-loophole');
     }
 

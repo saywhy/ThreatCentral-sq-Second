@@ -366,6 +366,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
     }
     // 获取列表
     $scope.get_page = function (pageNow) {
+        pageNow = pageNow ? pageNow * 1 : 1
         if (pageNow < 1) {
             pageNow = 1;
             $scope.page_num = 1;
@@ -375,7 +376,6 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             pageNow = 1;
             $scope.page_num = 1;
         }
-        pageNow = pageNow ? pageNow : 1;
         $scope.pageNow = pageNow
         // var loading = zeroModal.loading(4);
         var params_data = JSON.stringify($scope.seach_data);
@@ -427,6 +427,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 // zeroModal.close(loading);
                 $scope.pages = data.data;
                 console.log($scope.pages);
+                $scope.pages.pageNow = $scope.pages.pageNow * 1
+                $scope.pages.maxPage = $scope.pages.maxPage * 1
                 angular.forEach($scope.pages.data, function (item) {
                     console.log(item.title);
 
@@ -746,24 +748,27 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
 
         setTimeout(function () {
 
-            if($scope.my_add_num > 0){
+            if ($scope.my_add_num > 0) {
 
                 $('.label_auto_complate').each(function (index, elem) {
                     let instance = $('#label_auto_complate_' + index).autocomplete('instance');
-                    if(instance){
+                    if (instance) {
                         $('#label_auto_complate_' + index).unbind('focus').unbind('blur').autocomplete('destroy');
                     }
                 });
 
             }
-            $scope.my_add_num ++;
+            $scope.my_add_num++;
 
             let flag_add = false;
 
             $('.label_auto_complate').each(function (index, elem) {
 
                 $scope.add_item.tag.filter((items) => {
-                    return Object.assign(items,{change_name:items.name,change_attr_id:items.label_id_attr})
+                    return Object.assign(items, {
+                        change_name: items.name,
+                        change_attr_id: items.label_id_attr
+                    })
                 })
 
                 let datas = $scope.add_item.tag[index].tag_name_list;
@@ -817,7 +822,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     $scope.add_item.old_name = $scope.add_item.tag[index].name;
                     $scope.add_item.old_id = $scope.add_item.tag[index].label_id_attr;
                     flag_add = false;
-                    $(this).autocomplete("search",'');
+                    $(this).autocomplete("search", '');
                     return false;
 
 
@@ -825,14 +830,14 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     var myInput = document.getElementById("label_auto_complate_" + index);
                     if (myInput == document.activeElement) {
                         console.log('11112222');
-                    }else{
-                        if(!flag_add){
-                            if(!$scope.add_item.tag[index].name == ''){
+                    } else {
+                        if (!flag_add) {
+                            if (!$scope.add_item.tag[index].name == '') {
                                 zeroModal.error('您未选中触发的标签名称列表，请选择！');
                                 $(this).val($scope.add_item.tag[index].change_name);
                                 $scope.add_item.tag[index].name = $scope.add_item.tag[index].change_name;
                                 $scope.add_item.tag[index].label_id_attr = $scope.add_item.tag[index].change_attr_id;
-                            }else {
+                            } else {
                                 $(this).val('');
                                 $scope.add_item.tag[index].name = '';
                                 $scope.add_item.tag[index].label_id_attr = [];
@@ -856,24 +861,27 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
 
         setTimeout(function () {
 
-            if($scope.my_edit_num > 0){
+            if ($scope.my_edit_num > 0) {
 
                 $('.label_edit_complate').each(function (index, elem) {
                     let instance = $('#edit_auto_complate_' + index).autocomplete('instance');
-                    if(instance){
+                    if (instance) {
                         $('#edit_auto_complate_' + index).unbind('focus').unbind('blur').autocomplete('destroy');
                     }
                 });
 
             }
-            $scope.my_edit_num ++;
+            $scope.my_edit_num++;
 
             let flag_edit = false;
 
             $('.label_edit_complate').each(function (index, elem) {
 
                 $scope.edit_item.tag.filter((items) => {
-                    return Object.assign(items,{change_name:items.name,change_attr_id:items.label_id_attr})
+                    return Object.assign(items, {
+                        change_name: items.name,
+                        change_attr_id: items.label_id_attr
+                    })
                 })
                 let datas = $scope.edit_item.tag[index].tag_name_list;
 
@@ -917,20 +925,20 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     $scope.edit_item.old_name = $scope.edit_item.tag[index].name;
                     $scope.edit_item.old_id = $scope.edit_item.tag[index].label_id_attr;
                     flag_edit = false;
-                    $(this).autocomplete("search",'');
+                    $(this).autocomplete("search", '');
                     return false;
                 }).blur(function () {
                     var myInput = document.getElementById("edit_auto_complate_" + index);
                     if (myInput == document.activeElement) {
                         console.log('11112222');
-                    }else{
-                        if(!flag_edit){
-                            if(!$scope.edit_item.tag[index].name == ''){
+                    } else {
+                        if (!flag_edit) {
+                            if (!$scope.edit_item.tag[index].name == '') {
                                 zeroModal.error('您未选中触发的标签名称列表，请选择！');
                                 $(this).val($scope.edit_item.tag[index].change_name);
                                 $scope.edit_item.tag[index].name = $scope.edit_item.tag[index].change_name;
                                 $scope.edit_item.tag[index].label_id_attr = $scope.edit_item.tag[index].change_attr_id;
-                            }else {
+                            } else {
                                 $(this).val('');
                                 $scope.edit_item.tag[index].name = '';
                                 $scope.edit_item.tag[index].label_id_attr = [];
