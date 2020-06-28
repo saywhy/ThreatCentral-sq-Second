@@ -90,11 +90,12 @@ $this->title = '漏洞情报';
     <table class="table table-striped  table_th ng-cloak">
       <tr class="loophole_table_tr">
         <th></th>
-        <th style="width:180px;">漏洞标题</th>
-        <th style="width:200px;">漏洞描述</th>
-        <th style="width:180px;">情报来源</th>
-        <th>标签类型</th>
-        <th  style="width:120px;">公开日期</th>
+        <th style="width:340px;">漏洞标题</th>
+        <!--<th style="width:220px;">漏洞描述</th>-->
+        <th style="width:280px;">情报来源</th>
+        <th style="width:180px">CVE</th>
+        <th>标签</th>
+        <th style="width:120px;">公开日期</th>
       </tr>
       <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data"
         ng-click="list_item_click($event,item);">
@@ -111,11 +112,12 @@ $this->title = '漏洞情报';
           <div ng-if="item.level === ''" class="th_id_img">
           </div>
         </td>
-        <td  style="width:150px;color: #0070ff;">
-          <span ng-bind="item.title"></span>
+        <td  style="width:340px; color: #0070ff;">
+          <span ng-attr-title="{{item.detail}}" ng-bind="item.title"></span>
         </td>
-        <td style="width:200px;" ng-bind="item.detail"></td>
-        <td style="width:180px;" ng-bind="item.sourse"></td>
+        <!--<td style="width:220px;" ng-attr-title="{{item.detail}}" ng-bind="item.detail"></td>-->
+        <td style="width:280px;" ng-attr-title="{{item.sourse}}" ng-bind="item.sourse"></td>
+        <td style="width:180px;" ng-bind="item.new_nvd_name" ng-attr-title="{{item.new_nvd_name_title}}"></td>
         <td class="td_operation" style="white-space: nowrap;text-overflow: ellipsis;">
           <button class="btn_loophole" ng-class="{'active':it.status}" ng-repeat="it in item.label_name">
             <span ng-attr-title={{it}}>{{it}}</span>
@@ -155,7 +157,7 @@ $this->title = '漏洞情报';
   <div class="pop_box" ng-if="pop_show">
     <div class="pop_contnet">
       <div class="contnet_title_box">
-        <p class="pop_contnet_title">{{label_item_data.title}}</p>
+        <p class="pop_contnet_title" ng-attr-title="{{label_item_data.title}}">{{label_item_data.title}}</p>
         <img src="/images/set/closed_pop.png" ng-click="pop_cancel()" class="closed_img" alt="">
       </div>
       <div class="pop_box_container">

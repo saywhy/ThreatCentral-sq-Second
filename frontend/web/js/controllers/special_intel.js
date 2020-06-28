@@ -419,7 +419,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             function (data) {
                 zeroModal.close(loading);
                 $scope.pages = data.data;
-                //console.log($scope.pages);
+                console.log($scope.pages);
+
                 $scope.pages.pageNow = $scope.pages.pageNow * 1
                 angular.forEach($scope.pages.data, function (item) {
                     item.title = $scope.escape2Html(item.title)
@@ -953,6 +954,11 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         });
     }
+    //归档
+    $scope.place = function (id) {
+        alert('我是归档事件')
+    }
+
     $scope.cate_delete_ok = function () {
         var loading = zeroModal.loading(4);
         $http({

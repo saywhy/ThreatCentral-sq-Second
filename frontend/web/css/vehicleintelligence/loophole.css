@@ -419,7 +419,7 @@ button:active {
   white-space: nowrap;
 } */
 
-/* 
+/*
 .loophole_table_tr th:nth-child(5),
 .loophole_table_tr td:nth-child(5) {
   flex: 1;
@@ -445,7 +445,7 @@ button:active {
   .loophole_table_tr td:nth-child(2) {
     width: 350px;
   } */
-  /* 
+  /*
   .loophole_table_tr th:nth-child(3),
   .loophole_table_tr td:nth-child(3) {
     width: 250px;
@@ -587,6 +587,9 @@ button:active {
   overflow-y: auto;
   height: 484px;
 }
+/*.td_operation{
+  border: 1px solid red;
+}*/
 
 
 .l_mid::-webkit-scrollbar {

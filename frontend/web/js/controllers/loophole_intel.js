@@ -430,9 +430,20 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 $scope.pages.pageNow = $scope.pages.pageNow * 1
                 $scope.pages.maxPage = $scope.pages.maxPage * 1
                 angular.forEach($scope.pages.data, function (item) {
-                    console.log(item.title);
+                    item.nvd_name = item.nvd.map(its => {return its.cve});
 
-                    item.title = $scope.escape2Html(item.title)
+                    if(item.nvd_name.length == 0){
+                        item.new_nvd_name = '';
+                        item.new_nvd_name_title = '';
+                    }else if(item.nvd_name.length == 1){
+                        item.new_nvd_name = item.nvd_name[0];
+                        item.new_nvd_name_title = item.nvd_name[0];
+                    }else {
+                        item.new_nvd_name = item.nvd_name[0] + '...';
+                        item.new_nvd_name_title = item.nvd_name.join(',');
+                    }
+
+                    item.title = $scope.escape2Html(item.title);
                     if (item.label_name.length != 0) {
                         item.label_title = item.label_name.join(',')
                         item.label_title = $scope.escape2Html(item.label_title)

@@ -404,7 +404,7 @@ select {
 }
 
 .td_operation {
-  width: 180px;
+  width: 200px;
   text-align: right;
 }
 
@@ -418,8 +418,9 @@ select {
 }
 
 
-
-
+/*.select_down_icon{
+  visibility: hidden;
+}*/
 
 /*********************************/
 .vehicle_search_country {
@@ -820,11 +821,12 @@ select {
   background-color: #0070FF
 }
 
-.label_edit_complate,
-.label_auto_complate, .item_right_input:focus{
+.label_edit_complate, .label_edit_complate:focus,
+.label_auto_complate, .label_auto_complate:focus{
   background-image: url("../../images/set/label_triangle_down.png");
   background-repeat: no-repeat;
   background-position: 96%;
+  cursor: pointer;
 }
 
 /**********************/

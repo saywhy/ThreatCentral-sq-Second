@@ -279,9 +279,11 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter, $do
 
         $scope.label_item_data = item;
         console.log($scope.label_item_data);
+
         $scope.label_item_data.detail = $scope.label_item_data.detail.trim();
         $scope.label_item_data.detail = $scope.label_item_data.detail.replace(/[\r\n]/g, "");;
         $scope.pop_show = true;
+
         // var W = 740;
         // var H = 593;
 
@@ -451,9 +453,22 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter, $do
         }).then(function (data) {
                 zeroModal.close(loading);
                 $scope.pages = data.data;
-                console.log($scope.pages)
                 $scope.pages.pageNow = $scope.pages.pageNow * 1
                 angular.forEach($scope.pages.data, function (item) {
+
+                    item.nvd_name = item.nvd.map(its => {return its.cve})
+
+                    if(item.nvd_name.length == 0){
+                        item.new_nvd_name = '';
+                        item.new_nvd_name_title = '';
+                    }else if(item.nvd_name.length == 1){
+                        item.new_nvd_name = item.nvd_name[0];
+                        item.new_nvd_name_title = item.nvd_name[0];
+                    }else {
+                        item.new_nvd_name = item.nvd_name[0] + '...';
+                        item.new_nvd_name_title = item.nvd_name.join(',');
+                    }
+
                     item.title = $scope.escape2Html(item.title)
                     item.detail = $scope.escape2Html(item.detail)
                     item.sourse = $scope.escape2Html(item.sourse)
@@ -464,10 +479,7 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter, $do
                     angular.forEach(item.reference_information, function (key, index) {
                         item.reference_information[index] = $scope.escape2Html(key)
                     })
-
                 })
-
-
             },
             function () {}
         );

@@ -398,9 +398,19 @@ select {
   line-height: 28px;
   font-size: 12px;
 }
+.table_tr_title_1{
+  width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/*.select_down_icon{
+  visibility: hidden;
+}*/
 
 .td_operation {
-  width: 180px;
+  width: 220px;
   text-align: right;
 }
 
@@ -509,10 +519,6 @@ select {
   border-left: 4px solid transparent;
 }
 
-
-
-
-
 .add_bg {
   background: #E0EEFF;
 }
@@ -584,7 +590,6 @@ select {
 .closed_img {
   float: right;
   cursor: pointer;
-
 }
 
 .pop_contnet_title {
@@ -855,8 +860,8 @@ th:nth-last-child(1) {
   border: none;
 }
 
-.label_edit_complate,
-.label_auto_complate, .item_right_input:focus{
+.label_edit_complate, .label_edit_complate:focus,
+.label_auto_complate, .label_auto_complate:focus{
   background-image: url("../../images/set/label_triangle_down.png");
   background-repeat: no-repeat;
   background-position: 96%;

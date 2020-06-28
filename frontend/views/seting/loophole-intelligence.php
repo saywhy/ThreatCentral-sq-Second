@@ -86,9 +86,10 @@ $this->title = '漏洞情报管理';
         <th></th>
         <th>情报标题</th>
         <th>情报来源</th>
+        <th style="width:180px">CVE</th>
         <th class="tag_th">标签</th>
-        <th style="width:150px" class="th_time">公开日期</th>
-        <th style="width:100px">状态</th>
+        <th style="width:180px" class="th_time">公开日期</th>
+        <th style="width:150px">状态</th>
         <th class="td_operation th_id">操作</th>
       </tr>
       <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data track by $index"
@@ -102,14 +103,15 @@ $this->title = '漏洞情报管理';
           <span ng-bind="item.title" ng-attr-title="{{item.detail}}" ng-click="edit_loop_box(item)"> </span>
         </td>
         <td ng-bind="item.sourse"></td>
+        <td style="width:180px" ng-bind="item.new_nvd_name" ng-attr-title="{{item.new_nvd_name_title}}"></td>
         <td ng-attr-title="{{item.label_title}}">
           <button class="btn_loophole" ng-repeat="it in item.label_name">
             {{it}}
             <!-- <img class="loop_img" src="/images/loophole/tick.png" alt="" ng-show="it.status"> -->
           </button>
         </td>
-        <td style="width:150px">{{item.open_time*1000 | date : 'yyyy-MM-dd'}}</td>
-        <td style="width:100px">{{item.status=='0'? '未发布':'已发布'}}</td>
+        <td style="width:180px">{{item.open_time*1000 | date : 'yyyy-MM-dd'}}</td>
+        <td style="width:120px">{{item.status=='0'? '未发布':'已发布'}}</td>
         <td class="td_operation th_id">
           <img class="set_img_icon" ng-if="item.status=='0'" ng-click="release(item.id,'1')" title="发布"
             src="/images/set/sq_release_i.png" alt="" alt="">
@@ -263,7 +265,7 @@ $this->title = '漏洞情报管理';
             </div>
             <div class="contnet_item_right">
               <textarea class="item_right_input" style="resize:none;line-height:2.0" placeholder="请输入漏洞描述"
-                ng-model="add_item.detail" name="" id="" cols="30" rows="3"></textarea>
+                ng-model="add_item.detail" name="" id="" cols="30" rows="5"></textarea>
             </div>
           </div>
           <!-- 建议处理措施 -->
@@ -501,7 +503,7 @@ $this->title = '漏洞情报管理';
             </div>
             <div class="contnet_item_right">
               <textarea class="item_right_input" style="resize:none;line-height:2.0" placeholder="请输入漏洞描述"
-                ng-model="edit_item.detail" name="" id="" cols="30" rows="3"></textarea>
+                ng-model="edit_item.detail" name="" id="" cols="30" rows="5"></textarea>
             </div>
           </div>
           <!-- 建议处理措施 -->
