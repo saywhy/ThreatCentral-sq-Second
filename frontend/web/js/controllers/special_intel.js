@@ -421,6 +421,41 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 $scope.pages = data.data;
                 console.log($scope.pages);
 
+                ///////////////////////////////////////
+                //table多选事件
+                $scope.selected = [];
+
+                var updateSelected = function (action, id) {
+                    if (action == 'add' && $scope.selected.indexOf(id) == -1)
+                        $scope.selected.push(id);
+                    if (action == 'remove' && $scope.selected.indexOf(id) != -1)
+                        $scope.selected.splice($scope.selected.indexOf(id), 1);
+                };
+                //更新某一列数据的选择
+                $scope.updateSelection = function ($event, id) {
+                    var checkbox = $event.target;
+                    var action = (checkbox.checked ? 'add' : 'remove');
+                    updateSelected(action, id);
+                };
+
+                //全选操作
+                $scope.selectAll = function ($event) {
+                    var checkbox = $event.target;
+                    var action = (checkbox.checked ? 'add' : 'remove');
+                    for (var i = 0; i < $scope.pages.data.length; i++) {
+                        var contact = $scope.pages.data[i];
+                        updateSelected(action, contact.id);
+                    }
+                };
+                $scope.isSelected = function (id) {
+                    return $scope.selected.indexOf(id) >= 0;
+                };
+                $scope.isSelectedAll = function () {
+                    return $scope.selected.length === $scope.pages.data.length;
+                };
+                ///////////////////////////////////////
+
+
                 $scope.pages.pageNow = $scope.pages.pageNow * 1
                 angular.forEach($scope.pages.data, function (item) {
                     item.title = $scope.escape2Html(item.title)
@@ -2176,4 +2211,5 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         })
     }
     $scope.init();
+
 });

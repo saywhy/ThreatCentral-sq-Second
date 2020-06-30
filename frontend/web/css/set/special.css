@@ -408,6 +408,40 @@ select {
 /*.select_down_icon{
   visibility: hidden;
 }*/
+.ck_box{
+  width:14px;
+  height:14px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+
+}
+
+
+.ck_box::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #d9d9d9;
+}
+.ck_box:checked::before{
+  content: "\2713";
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  line-height: 14px;
+  width:100%;
+  border: 1px solid #e50232;
+  color:#e50232;
+  font-size: 12px;
+  font-weight: bold;
+}
 
 .td_operation {
   width: 220px;

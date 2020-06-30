@@ -16,7 +16,7 @@ $this->title = '行业情报管理';
           ng-blur="get_intel_search_blur()" ng-keyup="myKeyup_intel_search(seach_data.client_ip)"
           placeholder="情报标题/情报描述" ng-model="seach_data.key_word">
       </div>
-      <div class="intel_search_time ">
+      <div class="intel_search_time">
         <img src="/images/report/time.png" class="time_icon_search" alt="">
         <input class="input_box" autocomplete="off" id="picker_search" type="text" placeholder="日期">
       </div>
@@ -62,6 +62,7 @@ $this->title = '行业情报管理';
       <button class="button_search" ng-click="get_page()">搜索</button>
       <button class="button_add" ng-click="add_loop_box()">情报录入</button>
     </div>
+    {{selected}}
   </div>
 
   <!-- 标签列表展示 -->
@@ -85,7 +86,7 @@ $this->title = '行业情报管理';
   <div class="loophole_table_content" ng-click="blur_input()">
     <table class="table table-striped  table_th ng-cloak">
       <tr class="loophole_table_tr">
-        <th><input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()"/></th>
+        <th><input type="checkbox" class="ck_box" ng-click="selectAll($event)" ng-checked="isSelectedAll()"/></th>
         <th style="width:80px"></th>
         <th class="table_tr_title_1">情报标题</th>
         <th>情报来源</th>
@@ -96,7 +97,7 @@ $this->title = '行业情报管理';
       </tr>
       <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data track by $index"
         ng-click="detail(item)">
-        <td><input type="checkbox" name="selected" ng-checked="isSelected(item.id)" ng-click="updateSelection($event,item.id)"/></td>
+        <td><input type="checkbox" class="ck_box" name="selected" ng-checked="isSelected(item.id)" ng-click="updateSelection($event,item.id)"/></td>
         <td style="width:80px">
           <img src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
           <img src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
