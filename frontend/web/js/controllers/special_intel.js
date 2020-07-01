@@ -425,6 +425,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 //table多选事件
                 $scope.selected = [];
 
+                $scope.handle = '';
+
                 var updateSelected = function (action, id) {
                     if (action == 'add' && $scope.selected.indexOf(id) == -1)
                         $scope.selected.push(id);
@@ -989,11 +991,6 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         });
     }
-    //归档
-    $scope.place = function (id) {
-        alert('我是归档事件')
-    }
-
     $scope.cate_delete_ok = function () {
         var loading = zeroModal.loading(4);
         $http({
@@ -2210,6 +2207,152 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             }
         })
     }
+
+    /**
+    * 批量删除
+    * */
+    $scope.deletion = false;
+    $scope.handle = '';
+    $scope.deletion_list = [{name:'批量删除',en_name:'del'},
+        {name:'批量发布',en_name:'pub'},
+        {name:'批量撤回',en_name:'rec'}];
+    $scope.deletion_choose_item = function(val) {
+        $scope.handle = val;
+    };
+
+    //执行事件
+    $scope.btn_deletion_box = function(){
+        // 删除情报
+        var W = 552;
+        var H = 248;
+
+        let deletion = {};
+
+        if($scope.selected.length == 0){
+            zeroModal.alert("请勾选需要批量操作的列表！");
+        }else {
+            if($scope.handle == '批量删除'){
+                deletion = {name:'批量删除情报', content:cate_delete_del, content_fa:cate_delete_box_del};
+            }else if($scope.handle == '批量发布'){
+                deletion = {name:'批量发布情报', content:cate_delete_pub, content_fa:cate_delete_box_pub};
+            }else if($scope.handle == '批量撤回'){
+                deletion = {name:'批量撤回情报', content:cate_delete_rec, content_fa:cate_delete_box_rec};
+            }else {
+                zeroModal.alert("请选择批量操作！");
+                return false;
+            }
+            zeroModal.show({
+                title: deletion.name,
+                content: deletion.content,
+                width: W + "px",
+                height: H + "px",
+                unique: '123',
+                ok: false,
+                cancel: false,
+                okFn: function () {},
+                onCleanup: function () {
+                    deletion.content_fa.appendChild(deletion.content);
+                }
+            });
+        }
+
+    }
+
+    //批量删除确定
+    $scope.cate_delete_del_ok = function () {
+        var loading = zeroModal.loading(4);
+        $http({
+            method: "delete",
+            url: "/seting/special-intelligence-del",
+            data: {
+                id: $scope.selected
+            }
+        }).then(
+            function (data) {
+                zeroModal.close(loading);
+                if (data.data.status == 'success') {
+                    zeroModal.closeAll();
+                    zeroModal.success("删除成功");
+                } else {
+                    zeroModal.error(data.data.errorMessage);
+                }
+
+                $scope.get_page($scope.pageNow);
+            },
+            function () {}
+        );
+    }
+    //批量发布确定
+    $scope.cate_delete_pub_ok = function () {
+        var loading = zeroModal.loading(4);
+        $http({
+            method: "put",
+            url: "/seting/special-intelligence-publish",
+            data: {
+                id: $scope.selected,
+                status:'1'
+            }
+        }).then(
+            function (data) {
+                zeroModal.close(loading);
+                if (data.data.status == 'success') {
+                    zeroModal.closeAll();
+                    $scope.get_page($scope.pageNow);
+                    zeroModal.success({
+                        overlayClose: true,
+                        content: '发布成功'
+                    });
+                } else {
+                    zeroModal.error(data.data.errorMessage);
+                }
+            },
+            function () {}
+        );
+    }
+    //批量撤回确定
+    $scope.cate_delete_rec_ok = function () {
+        var loading = zeroModal.loading(4);
+        $http({
+            method: "put",
+            url: "/seting/special-intelligence-publish",
+            data: {
+                id: $scope.selected,
+                status:'0'
+            }
+        }).then(
+            function (data) {
+                zeroModal.close(loading);
+                if (data.data.status == 'success') {
+                    zeroModal.closeAll();
+                    $scope.get_page($scope.pageNow);
+                    zeroModal.success({
+                        overlayClose: true,
+                        content: '撤回成功'
+                    });
+                } else {
+                    zeroModal.error(data.data.errorMessage);
+                }
+            },
+            function () {}
+        );
+    }
+
     $scope.init();
 
 });
+
+//table状态
+myApp.filter('spe_status', function() { //可以注入依赖
+    return function(args){
+        let val = '未发布';
+        if(args == '0'){
+            val = '未发布';
+        }else if (args == '1'){
+            val = '已发布';
+        }else if (args == '2'){
+            val = '已归档';
+        }
+        return val;
+    }
+});
+

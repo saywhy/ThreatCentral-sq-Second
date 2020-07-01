@@ -90,7 +90,7 @@ $this->title = '漏洞情报';
     <table class="table table-striped  table_th ng-cloak">
       <tr class="loophole_table_tr">
         <th></th>
-        <th style="width:340px;">漏洞标题</th>
+        <th style="width:360px;">漏洞标题</th>
         <!--<th style="width:220px;">漏洞描述</th>-->
         <th style="width:280px;">情报来源</th>
         <th style="width:180px">CVE</th>
@@ -112,7 +112,7 @@ $this->title = '漏洞情报';
           <div ng-if="item.level === ''" class="th_id_img">
           </div>
         </td>
-        <td  style="width:340px; color: #0070ff;">
+        <td  style="width:360px; color: #0070ff;">
           <span ng-attr-title="{{item.detail}}" ng-bind="item.title"></span>
         </td>
         <!--<td style="width:220px;" ng-attr-title="{{item.detail}}" ng-bind="item.detail"></td>-->

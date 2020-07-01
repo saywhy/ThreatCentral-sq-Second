@@ -403,8 +403,44 @@ select {
   font-size: 12px;
 }
 
+/**/
+.ck_box{
+  width:14px;
+  height:14px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+}
+
+
+.ck_box::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #d9d9d9;
+}
+.ck_box:checked::before{
+  content: "\2713";
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  line-height: 12px;
+  width:100%;
+  border: 1px solid #999;
+  /*background-color: #2081ff;*/
+  color:#0070ff;
+  font-size: 12px;
+  font-weight: bold;
+}
+
 .td_operation {
-  width: 200px;
+  width: 220px;
   text-align: right;
 }
 
@@ -679,6 +715,11 @@ select {
   right: 10px;
   top: 15px;
 }
+.select_down_icon_1 {
+  position: absolute;
+  right: 0px;
+  top: 15px;
+}
 
 
 .select_list_box {
@@ -906,3 +947,53 @@ select {
   border: 1px solid #0070FF;
   font-family: PingFangSC-Regular;
 }
+/***************批量操作********************/
+
+
+
+.deletion_list_box {
+  position: absolute;
+  background: #fff;
+  width: 156px;
+  height: 112px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+  margin-top: -156px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 9990;
+  padding: 4px 0;
+  border: 1px solid #ECECEC;
+}
+
+.deletion_list_box li {
+  font-size: 14px;
+  height: 34px;
+  line-height: 34px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 10px;
+  width: 156px;
+  color: #0070FF;
+  cursor: pointer;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.deletion_list_box li:hover {
+  background: #E0EEFF;
+}
+
+.btn_deletion{
+  border: 1px solid #0070FF;
+  font-family: PingFangSC-Regular;
+  color: #0070FF;
+  border-radius: 4px;
+  font-size: 14px;
+  height: 40px;
+  width: 96px;
+  margin-left: 16px;
+  vertical-align: bottom;
+}
+
+
