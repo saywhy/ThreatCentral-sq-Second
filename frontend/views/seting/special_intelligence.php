@@ -122,7 +122,7 @@ $this->title = '行业情报管理';
           <img class="set_img_icon" ng-click="delete(item.id)" title="删除" src="/images/set/sq_del_i.png" alt="">
 
           <img class="set_img_icon" ng-if="item.status !='2'" ng-click="release(item.id, '2')" title="归档" src="/images/set/sq_file_1.png" alt="" alt="">
-          <img class="set_img_icon" ng-if="item.status =='2'" ng-click="release(item.id, '0')" title="撤回归档" src="/images/set/sq_file_2.png" alt="" alt="">
+          <img class="set_img_icon" ng-if="item.status =='2'" ng-click="release(item.id, '0')" title="取消归档" src="/images/set/sq_file_2.png" alt="" alt="">
         </td>
       </tr>
     </table>
@@ -132,7 +132,7 @@ $this->title = '行业情报管理';
        <div class="search_input_box" style="width:140px">
          <img src="/images/set/label_triangle_down_1.png" class="select_down_icon_1" alt="">
          <input autocomplete="off" type="text" placeholder="批量操作" readonly ng-model="handle"
-           ng-focus="deletion = true" class="search_input"  ng-blur="deletion = false"  style="width:156px;" >
+           ng-focus="deletion = true" class="search_input" ng-blur="deletion = false" style="width:156px;" >
          <ul class="deletion_list_box" ng-if="deletion">
            <li class="item" title={{item.name}} ng-mousedown="deletion_choose_item(item.name);"
              ng-repeat="item in deletion_list track by $index">
@@ -698,5 +698,30 @@ $this->title = '行业情报管理';
         </div>
     </div>
 
+    <!-- 批量归档 -->
+    <div style="display: none;" id="cate_delete_box_pla">
+        <div id="cate_delete_pla">
+          <div class="cate_content">
+            <p class="cate_tip">请确认是否批量归档选中情报？</p>
+          </div>
+          <div class="cate_btn_delete_box">
+            <button class="cate_btn_ok" ng-click="cate_delete_pla_ok()">确认</button>
+            <button class="cate_btn_cancel" ng-click="cate_delete_cancel();">取消</button>
+          </div>
+        </div>
+    </div>
+
+    <!-- 批量取消归档 -->
+    <div style="display: none;" id="cate_delete_box_repla">
+        <div id="cate_delete_repla">
+          <div class="cate_content">
+            <p class="cate_tip">请确认是否批量取消归档选中情报？</p>
+          </div>
+          <div class="cate_btn_delete_box">
+            <button class="cate_btn_ok" ng-click="cate_delete_repla_ok()">确认</button>
+            <button class="cate_btn_cancel" ng-click="cate_delete_cancel();">取消</button>
+          </div>
+        </div>
+    </div>
 </section>
 <script src="/js/controllers/special_intel.js"></script>

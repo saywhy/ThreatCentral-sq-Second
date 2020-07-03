@@ -955,9 +955,9 @@ select {
   position: absolute;
   background: #fff;
   width: 156px;
-  height: 112px;
+  height: 180px;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12);
-  margin-top: -156px;
+  margin-top: -224px;
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 9990;

@@ -2215,7 +2215,9 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     $scope.handle = '';
     $scope.deletion_list = [{name:'批量删除',en_name:'del'},
         {name:'批量发布',en_name:'pub'},
-        {name:'批量撤回',en_name:'rec'}];
+        {name:'批量撤回',en_name:'rec'},
+        {name:'批量归档',en_name:'pla'},
+        {name:'批量取消归档',en_name:'repla'}];
     $scope.deletion_choose_item = function(val) {
         $scope.handle = val;
     };
@@ -2237,6 +2239,10 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 deletion = {name:'批量发布情报', content:cate_delete_pub, content_fa:cate_delete_box_pub};
             }else if($scope.handle == '批量撤回'){
                 deletion = {name:'批量撤回情报', content:cate_delete_rec, content_fa:cate_delete_box_rec};
+            }else if($scope.handle == '批量归档'){
+                deletion = {name:'批量归档情报', content:cate_delete_pla, content_fa:cate_delete_box_pla};
+            }else if($scope.handle == '批量取消归档'){
+                deletion = {name:'批量取消归档情报', content:cate_delete_repla, content_fa:cate_delete_box_repla};
             }else {
                 zeroModal.alert("请选择批量操作！");
                 return false;
@@ -2272,7 +2278,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     zeroModal.closeAll();
-                    zeroModal.success("删除成功");
+                    zeroModal.success("批量删除成功");
                 } else {
                     zeroModal.error(data.data.errorMessage);
                 }
@@ -2282,6 +2288,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             function () {}
         );
     }
+
     //批量发布确定
     $scope.cate_delete_pub_ok = function () {
         var loading = zeroModal.loading(4);
@@ -2300,7 +2307,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     $scope.get_page($scope.pageNow);
                     zeroModal.success({
                         overlayClose: true,
-                        content: '发布成功'
+                        content: '批量发布成功'
                     });
                 } else {
                     zeroModal.error(data.data.errorMessage);
@@ -2309,6 +2316,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
             function () {}
         );
     }
+
     //批量撤回确定
     $scope.cate_delete_rec_ok = function () {
         var loading = zeroModal.loading(4);
@@ -2327,7 +2335,63 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     $scope.get_page($scope.pageNow);
                     zeroModal.success({
                         overlayClose: true,
-                        content: '撤回成功'
+                        content: '批量撤回成功'
+                    });
+                } else {
+                    zeroModal.error(data.data.errorMessage);
+                }
+            },
+            function () {}
+        );
+    }
+
+    //批量归档确定
+    $scope.cate_delete_pla_ok = function () {
+        var loading = zeroModal.loading(4);
+        $http({
+            method: "put",
+            url: "/seting/special-intelligence-publish",
+            data: {
+                id: $scope.selected,
+                status:'2'
+            }
+        }).then(
+            function (data) {
+                zeroModal.close(loading);
+                if (data.data.status == 'success') {
+                    zeroModal.closeAll();
+                    $scope.get_page($scope.pageNow);
+                    zeroModal.success({
+                        overlayClose: true,
+                        content: '批量归档成功'
+                    });
+                } else {
+                    zeroModal.error(data.data.errorMessage);
+                }
+            },
+            function () {}
+        );
+    }
+
+    //批量取消归档确定
+    $scope.cate_delete_repla_ok = function () {
+        var loading = zeroModal.loading(4);
+        $http({
+            method: "put",
+            url: "/seting/special-intelligence-publish",
+            data: {
+                id: $scope.selected,
+                status:'0'
+            }
+        }).then(
+            function (data) {
+                zeroModal.close(loading);
+                if (data.data.status == 'success') {
+                    zeroModal.closeAll();
+                    $scope.get_page($scope.pageNow);
+                    zeroModal.success({
+                        overlayClose: true,
+                        content: '批量取消归档成功'
                     });
                 } else {
                     zeroModal.error(data.data.errorMessage);
