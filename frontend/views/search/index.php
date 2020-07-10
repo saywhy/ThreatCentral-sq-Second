@@ -252,15 +252,18 @@ $this->title = '情报查询';
     }
 
     .high_color {
-        color: #FF5F5C;
+        color: #EB883B;
+    }
+    .fatal_color{
+color: #E34F4F;
     }
 
     .mid_color {
-        color: #FEAA00;
+        color: #F4D352;
     }
 
     .low_color {
-        color: #7ACE4C
+        color: #4588F4
     }
 
     .loop_id {
@@ -495,8 +498,7 @@ $this->title = '情报查询';
                                 <td title="{{item.title}}">
                                 <span ng-click="loophole_detail(item)">{{item.title}}</span>
                                 </td>
-                                <td title="{{item.degree}}"
-                                    ng-class="{high_color:item.degree=='高',mid_color:item.degree=='中',low_color:item.degree=='低'}">
+                                <td title="{{item.degree}}">
                                            <span ng-click="loophole_detail(item)">{{item.degree}}</span>
                                     </td>
                                 <td title="{{item.count}}">
