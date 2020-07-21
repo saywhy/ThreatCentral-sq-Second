@@ -90,8 +90,8 @@ $this->title = '漏洞情报管理';
         <th>情报来源</th>
         <th style="width:180px">CVE</th>
         <th class="tag_th">标签</th>
-        <th style="width:180px" class="th_time">公开日期</th>
-        <th style="width:150px">状态</th>
+        <th style="width:150px" class="th_time">公开日期</th>
+        <th style="width:100px">状态</th>
         <th class="td_operation th_id">操作</th>
       </tr>
       <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data track by $index"
@@ -114,8 +114,8 @@ $this->title = '漏洞情报管理';
             <!-- <img class="loop_img" src="/images/loophole/tick.png" alt="" ng-show="it.status"> -->
           </button>
         </td>
-        <td style="width:180px">{{item.open_time*1000 | date : 'yyyy-MM-dd'}}</td>
-        <td style="width:120px">{{item.status | spe_status}}</td>
+        <td style="width:150px">{{item.open_time*1000 | date : 'yyyy-MM-dd'}}</td>
+        <td style="width:100px">{{item.status | spe_status}}</td>
         <td class="td_operation th_id">
           <img class="set_img_icon" ng-if="item.status=='0'" ng-click="release(item.id,'1')" title="发布"
             src="/images/set/sq_release_i.png" alt="">
@@ -274,7 +274,6 @@ $this->title = '漏洞情报管理';
                   <img src="/images/set/cel_icon.png" ng-if="add_item.affected.length==1&&item.name!=''"
                     ng-click="delete_input_list('affected',index)" class="add_icon" alt="">
 
-
                 </div>
               </div>
             </div>
@@ -282,29 +281,28 @@ $this->title = '漏洞情报管理';
           <!-- 验证信息 -->
           <div class="contnet_item">
             <div class="contnet_item_left">
-              <img src="/images/set/add_icon_2.png" alt="">
+              <img src="/images/set/add_icon_11.png" style="width:18px;" alt="">
               <span>验证信息:</span>
             </div>
             <div class="contnet_item_right">
-              <div class="tag_item" style="margin:0">
-                <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-                <input autocomplete="off" type="text" placeholder="请选择验证信息" ng-model="add_item.verification"
-                  ng-focus="add_focus('verification')" ng-blur="add_blur('verification');" class="item_right_input"
-                  readonly>
-                      <img src="/images/set/closed_pop.png" alt="" ng-click="verification_add_cancel()"
-                class="item_right_time_icon_cancel">
+                  <div class="tag_item" style="margin:0">
+                    <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                    <input autocomplete="off" type="text" placeholder="请选择验证信息" ng-model="add_item.verification"
+                      ng-focus="add_focus('verification')" ng-blur="add_blur('verification');" class="item_right_input"
+                      readonly>
+                          <img src="/images/set/closed_pop.png" alt="" ng-click="verification_add_cancel()"
+                    class="item_right_time_icon_cancel">
+                  </div>
+                  <ul class="select_list_box select_list_margin" ng-if="pop_show.add_verification_list">
+                    <li ng-mousedown="choose_item(item.name,$index,'verification');"
+                      ng-class="{'add_bg':tag_key_add.active_index == $index}"
+                      ng-repeat="item in add_item.verification_list track by $index">
+                      {{item.name}}
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <ul class="select_list_box select_list_margin" ng-if="pop_show.add_verification_list">
-                <li ng-mousedown="choose_item(item.name,$index,'verification');"
-                  ng-class="{'add_bg':tag_key_add.active_index == $index}"
-                  ng-repeat="item in add_item.verification_list track by $index">
-                  {{item.name}}
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div>
+             <div>
           </div>
           <!-- 漏洞描述 -->
           <div class="contnet_item">
@@ -327,6 +325,21 @@ $this->title = '漏洞情报管理';
               <textarea class="item_right_input" style="resize:none;line-height:2.0" placeholder="请输入建议处理措施"
                 ng-model="add_item.treatment_measures" name="" id="" cols="30" rows="3"></textarea>
             </div>
+          </div>
+
+          <!-- 更新时间 -->
+          <div class="contnet_item">
+              <div class="contnet_item_left">
+                <img src="/images/set/add_icon_12.png" style="width:18px;" alt="">
+                <span>更新时间:</span>
+              </div>
+              <div class="contnet_item_right">
+                <img src="/images/report/time.png" alt="" class="item_right_time_icon">
+                <img src="/images/set/closed_pop.png" alt="" ng-click="picker_add_update_cancel()"
+                  class="item_right_time_icon_cancel">
+                <input autocomplete="off" class="item_right_input" type="text" placeholder="请选择更新时间"
+                  id="start_add_update">
+              </div>
           </div>
 
           <!-- 参考信息 -->
@@ -487,6 +500,8 @@ $this->title = '漏洞情报管理';
               </ul>
             </div>
           </div>
+
+          <!-- 公开日期 -->
           <div class="contnet_item">
             <div class="contnet_item_left">
               <img src="/images/set/add_icon_3.png" alt="">
@@ -499,6 +514,7 @@ $this->title = '漏洞情报管理';
               <input autocomplete="off" class="item_right_input" type="text" placeholder="请选择公开日期" id="picker_edit">
             </div>
           </div>
+
           <!-- 情报来源 -->
           <div class="contnet_item">
             <div class="contnet_item_left">
@@ -520,6 +536,7 @@ $this->title = '漏洞情报管理';
               </ul>
             </div>
           </div>
+
           <!-- 影响产品 -->
           <div class="contnet_item">
             <div class="contnet_item_left">
@@ -546,6 +563,34 @@ $this->title = '漏洞情报管理';
               </div>
             </div>
           </div>
+
+            <!-- 验证信息 -->
+              <div class="contnet_item">
+                <div class="contnet_item_left">
+                  <img src="/images/set/add_icon_11.png" style="width:18px;" alt="">
+                  <span>验证信息:</span>
+                </div>
+                <div class="contnet_item_right">
+                      <div class="tag_item" style="margin:0">
+                        <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                        <input autocomplete="off" type="text" placeholder="请选择验证信息" ng-model="edit_item.verification"
+                          ng-focus="edit_focus('verification')" ng-blur="edit_blur('verification');" class="item_right_input"
+                          readonly>
+                              <img src="/images/set/closed_pop.png" alt="" ng-click="verification_edit_cancel()"
+                        class="item_right_time_icon_cancel">
+                      </div>
+                      <ul class="select_list_box select_list_margin" ng-if="pop_show.edit_verification_list">
+                        <li ng-mousedown="choose_item_edit(item.name,$index,'verification');"
+                          ng-class="{'add_bg':tag_key_add.active_index == $index}"
+                          ng-repeat="item in edit_item.verification_list track by $index">
+                          {{item.name}}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                 <div>
+              </div>
+
           <!-- 漏洞描述 -->
           <div class="contnet_item">
             <div class="contnet_item_left">
@@ -568,6 +613,21 @@ $this->title = '漏洞情报管理';
                 ng-model="edit_item.treatment_measures" name="" id="" cols="30" rows="3"></textarea>
             </div>
           </div>
+
+          <!-- 更新时间 -->
+            <div class="contnet_item">
+                <div class="contnet_item_left">
+                  <img src="/images/set/add_icon_12.png" style="width:18px;" alt="">
+                  <span>更新时间:</span>
+                </div>
+                <div class="contnet_item_right">
+                  <img src="/images/report/time.png" alt="" class="item_right_time_icon">
+                  <img src="/images/set/closed_pop.png" alt="" ng-click="picker_edit_update_cancel()"
+                    class="item_right_time_icon_cancel">
+                  <input autocomplete="off" class="item_right_input" type="text" placeholder="请选择更新时间"
+                    id="picker_update_edit">
+                </div>
+            </div>
           <!-- 参考信息 -->
           <div class="contnet_item">
             <div class="contnet_item_left">

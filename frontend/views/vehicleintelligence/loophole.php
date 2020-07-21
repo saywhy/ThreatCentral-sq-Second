@@ -202,7 +202,18 @@ $this->title = '漏洞情报';
               </div>
             </div>
           </div>
+
           <div class="contnet_item">
+              <div class="contnet_item_left">
+                <img src="/images/set/add_icon_11.png" style="width:18px;" alt="">
+                <span>验证信息:</span>
+              </div>
+              <div class="contnet_item_right">
+                <span class="stance">{{label_item_data.verification}}</span>
+              </div>
+          </div>
+
+          <div class="contnet_item bg_item">
             <div class="contnet_item_left">
               <img src="/images/set/add_icon_6.png" alt="">
               <span>漏洞描述:</span>
@@ -213,7 +224,7 @@ $this->title = '漏洞情报';
               </div>
             </div>
           </div>
-          <div class="contnet_item bg_item">
+          <div class="contnet_item ">
             <div class="contnet_item_left">
               <img src="/images/loophole/sp8.png" alt="">
               <span>建议处理措施:</span>
@@ -224,6 +235,18 @@ $this->title = '漏洞情报';
               </div>
             </div>
           </div>
+
+          <div class="contnet_item bg_item">
+              <div class="contnet_item_left">
+                <img src="/images/set/add_icon_12.png" style="width:18px;" alt="">
+                <span>更新时间:</span>
+              </div>
+              <div class="contnet_item_right">
+                <span ng-if="label_item_data.update_time !=''">{{label_item_data.update_time*1000 | date : 'yyyy-MM-dd'}}</span>
+                <span ng-if="label_item_data.update_time ==''">{{label_item_data.update_time}}</span>
+              </div>
+          </div>
+
           <div class="contnet_item">
             <div class="contnet_item_left">
               <img src="/images/set/add_icon_8.png" alt="">

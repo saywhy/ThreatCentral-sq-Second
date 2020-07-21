@@ -109,8 +109,8 @@ $this->title = '行业情报管理';
             {{it}}
           </button>
         </td>
-        <td style="width:180px">{{item.first_seen_time =='0' ?'': item.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</td>
-        <td style="width:120px">{{item.status | spe_status}}</td>
+        <td style="width:150px">{{item.first_seen_time =='0' ?'': item.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</td>
+        <td style="width:100px">{{item.status | spe_status}}</td>
         <td class="td_operation th_id">
           <img class="set_img_icon" ng-if="item.status=='0'" ng-click="release(item.id,'1')" title="发布"
             src="/images/set/sq_release_i.png" alt="">

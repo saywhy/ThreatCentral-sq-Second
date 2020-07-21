@@ -101,6 +101,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             add_new_box: true,
             edit: false,
             edit_level_list: false,
+            edit_verification_list: false,
             edit_tag_category: false,
             edit_tag_name: false,
             edit_NVD_list: false,
@@ -205,6 +206,49 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             });
         }
     };
+
+    // 初始化更新时间
+    $scope.start_add_update = function () {
+        $scope.add_item.first_update_time = '';
+        $("#start_add_update").daterangepicker({
+                locale: {
+                    "format": 'YYYY-MM-DD',
+                    "applyLabel": "确定",
+                    "cancelLabel": "清空",
+                    // "customRangeLabel": "自定义",
+                    "weekLabel": "W",
+                    "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+                    "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                    "firstDay": 1
+                },
+                // ranges: {
+                //     '今日': [moment()],
+                // },
+                singleDatePicker: true,
+                showDropdowns: true,
+                "timePicker": false,
+                timePickerSeconds: false,
+                drops: "down",
+                opens: "right",
+                autoApply: true
+            },
+            function (start, end, label) {
+                $scope.add_item.first_update_time = start.unix()
+            },
+        )
+        if ($scope.add_item.first_update_time == '') {
+            $('#start_add_update').val('');
+            $('#start_add_update').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('YYYY/MM/DD'));
+                $scope.add_item.first_update_time = picker.startDate.unix()
+            });
+            $('#start_add_update').on('cancel.daterangepicker', function (ev, picker) {
+                $scope.add_item.first_update_time = ''
+                $('#start_add_update').val('');
+            });
+        }
+    };
+
     $scope.picker_search = function () {
         $("#picker_search").daterangepicker({
                 autoUpdateInput: false,
@@ -302,6 +346,55 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             });
         }
     };
+
+    $scope.picker_update_edit = function (startDate) {
+        $("#picker_update_edit").daterangepicker({
+                locale: {
+                    "format": 'YYYY-MM-DD',
+                    "applyLabel": "确定",
+                    "cancelLabel": "清空",
+                    "weekLabel": "W",
+                    // "customRangeLabel": "自定义",
+                    "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+                    "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                    "firstDay": 1
+                },
+                // ranges: {
+                //     '今日': [moment()],
+                // },
+                singleDatePicker: true,
+                showDropdowns: true,
+                "timePicker": false,
+                timePickerSeconds: false,
+                drops: "down",
+                opens: "right",
+            },
+            function (start, end, label) {
+                $scope.edit_item.first_update_time = start.unix()
+            },
+        )
+        if (startDate == '0') {
+            $scope.edit_item.first_update_time = ''
+            $('#picker_update_edit').val('');
+            $('#picker_update_edit').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('YYYY-MM-DD'));
+                $scope.edit_item.first_update_time = picker.startDate.unix()
+            });
+            $('#picker_update_edit').on('cancel.daterangepicker', function (ev, picker) {
+                $scope.edit_item.first_update_time = ''
+                $('#picker_edit').val('');
+            });
+        } else {
+            //  console.log($scope.edit_item.first_seen_time);
+            $('#picker_update_edit').data('daterangepicker').setStartDate(moment(new Date($scope.edit_item.first_update_time * 1000)).format('YYYY-MM-DD'));
+            $('#picker_update_edit').data('daterangepicker').setEndDate(moment(new Date($scope.edit_item.first_update_time * 1000)).format('YYYY-MM-DD'));
+            $('#picker_update_edit').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('YYYY-MM-DD'));
+                $scope.edit_item.first_update_time = picker.startDate.unix()
+            });
+        }
+    };
+
     $scope.picker_edit_cancel = function () {
         $scope.edit_item.first_seen_time = ''
         $('#picker_edit').val('');
@@ -310,8 +403,22 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         $scope.add_item.first_seen_time = ''
         $('#start_time_picker').val('');
     }
+    $scope.picker_add_update_cancel = function () {
+        $scope.add_item.first_update_time = ''
+        $('#start_add_update').val('');
+    }
+
+    $scope.picker_edit_update_cancel = function () {
+        $scope.edit_item.first_update_time = ''
+        $('#picker_update_edit').val('');
+    }
+
     $scope.verification_add_cancel = function () {
         $scope.add_item.verification = ''
+    }
+
+    $scope.verification_edit_cancel = function () {
+        $scope.edit_item.verification = ''
     }
 
     // 获取情报来源
@@ -431,7 +538,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             function (data) {
                 // zeroModal.close(loading);
                 $scope.pages = data.data;
-                console.log($scope.pages);
+                //console.log($scope.pages);
 
                 ///////////////////////////////////////
                 //table多选事件
@@ -467,8 +574,6 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     return $scope.selected.length === $scope.pages.data.length;
                 };
                 ///////////////////////////////////////
-
-
 
                 $scope.pages.pageNow = $scope.pages.pageNow * 1
                 $scope.pages.maxPage = $scope.pages.maxPage * 1
@@ -516,6 +621,12 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     $scope.enter_show = false;
                     var item_str = JSON.stringify($scope.edit_item_data);
                     $scope.edit_item_str = JSON.parse(item_str);
+
+                    if($scope.edit_item_str.update_time == '0' ||
+                        $scope.edit_item_str.update_time == 0){
+                        $scope.edit_item_str.update_time = '';
+                    }
+
                     $scope.edit_item = {
                         id: $scope.edit_item_str.id,
                         title: $scope.edit_item_str.title,
@@ -533,6 +644,16 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                                 num: '高危'
                             },
                         ],
+                        verification_list: [{
+                            name: '已验证',
+                            num: '已验证'
+                        },
+                            {
+                                name: '未验证',
+                                num: '未验证'
+                            },
+                        ],
+                        verification: $scope.edit_item_str.verification,
                         reference: [],
                         reference_information: [],
                         affected: [],
@@ -542,6 +663,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                         tag: [],
                         label_category: [],
                         first_seen_time: $scope.edit_item_str.open_time,
+                        first_update_time: $scope.edit_item_str.update_time,
                         sourse: $scope.edit_item_str.sourse,
                         detail: $scope.edit_item_str.detail,
                         treatment_measures: $scope.edit_item_str.treatment_measures,
@@ -669,6 +791,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                         })
                     }
                     $scope.picker_edit(moment(new Date($scope.edit_item_str.open_time * 1000)));
+                    $scope.picker_update_edit(moment(new Date($scope.edit_item_str.update_time * 1000)));
                     $scope.pop_show.edit = true;
                     $scope.get_page_show = false;
 
@@ -780,6 +903,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             tag: [],
             label_category: [],
             first_seen_time: '',
+            first_update_time:'',
             sourse: '',
             detail: '',
             treatment_measures: '',
@@ -801,6 +925,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
 
         })
         $scope.start_time_picker();
+
+        $scope.start_add_update();
 
         $scope.init_auto_complete();
 
@@ -1074,11 +1200,15 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 break;
         }
         if ($scope.add_item.first_seen_time == '') {
-            zeroModal.error('请输入公开日期')
+            zeroModal.error('请输入公开日期');
+            return false
+        }
+        if ($scope.add_item.first_update_time == '') {
+            zeroModal.error('请输入更新时间');
             return false
         }
         if ($scope.add_item.sourse == '') {
-            zeroModal.error('请选择情报来源')
+            zeroModal.error('请选择情报来源');
             return false
         }
 
@@ -1128,6 +1258,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 title: $scope.add_item.title,
                 level: $scope.add_item.level_cn,
                 open_time: $scope.add_item.first_seen_time,
+                update_time: $scope.add_item.first_update_time,
+                verification: $scope.add_item.verification,
                 sourse: $scope.add_item.sourse,
                 affected_products: $scope.add_item.affected_products,
                 detail: $scope.add_item.detail,
@@ -1189,7 +1321,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         );
     }
     // 删除情报
-    $scope.delete = function (id) {
+   /* $scope.delete = function (id) {
         var W = 552;
         var H = 185;
         var box = null;
@@ -1203,7 +1335,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
 
             },
         });
-    }
+    }*/
 
     // 删除情报
     $scope.delete = function (id) {
@@ -1253,11 +1385,11 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
 
     // 打开编辑框
     $scope.edit_loop_box = function (item) {
-        console.log(item)
         $scope.get_page_show = true;
         $scope.edit_item_data = item;
         $scope.get_lab_list();
     };
+
     $scope.edit_sure = function () {
         $scope.edit_item.affected_products = [];
         $scope.edit_item.reference_information = [];
@@ -1269,6 +1401,10 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             zeroModal.error('请输入公开时间')
             return false
         }
+        if ($scope.edit_item.first_update_time == 0 || $scope.edit_item.first_update_time == '') {
+            zeroModal.error('请输入更新时间')
+            return false
+        }
         if ($scope.edit_item.sourse == '请选择') {
             zeroModal.error('请选择情报来源')
             return false
@@ -1278,7 +1414,6 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             nvd: [],
             label_name: [],
             label_id_attr: []
-
         }
         switch ($scope.edit_item.level) {
             case '高危':
@@ -1335,6 +1470,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 title: $scope.edit_item.title,
                 level: params_edit.level,
                 open_time: $scope.edit_item.first_seen_time,
+                update_time: $scope.edit_item.first_update_time,
+                verification: $scope.edit_item.verification,
                 sourse: $scope.edit_item.sourse,
                 affected_products: $scope.edit_item.affected_products,
                 detail: $scope.edit_item.detail,
@@ -1652,6 +1789,9 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             case 'level':
                 $scope.pop_show.edit_level_list = true;
                 break;
+            case 'verification':
+                $scope.pop_show.edit_verification_list = true;
+                break;
             case 'tag_category':
                 angular.forEach($scope.edit_item.tag, function (item) {
                     item.category_ul = false;
@@ -1695,6 +1835,9 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         switch (name) {
             case 'level':
                 $scope.pop_show.edit_level_list = false;
+                break;
+            case 'verification':
+                $scope.pop_show.edit_verification_list = false;
                 break;
             case 'tag_category':
                 $scope.index_edit = index
@@ -1741,6 +1884,9 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 break;
             case 'source':
                 $scope.edit_item.sourse = data;
+                break;
+            case 'verification':
+                $scope.edit_item.verification = data;
                 break;
             case 'tag_category':
                 angular.forEach($scope.edit_item.tag, function (key, value) {

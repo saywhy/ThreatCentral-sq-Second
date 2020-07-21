@@ -280,6 +280,11 @@ myApp.controller("vehicleTelLoopholeCtrl", function ($scope, $http, $filter, $do
         $scope.label_item_data = item;
         console.log($scope.label_item_data);
 
+        if($scope.label_item_data.update_time == '0' ||
+            $scope.label_item_data.update_time == 0){
+            $scope.label_item_data.update_time = '';
+        }
+
         $scope.label_item_data.detail = $scope.label_item_data.detail.trim();
         $scope.label_item_data.detail = $scope.label_item_data.detail.replace(/[\r\n]/g, "");;
         $scope.pop_show = true;
