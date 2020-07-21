@@ -21,12 +21,13 @@ $this->title = '漏洞情报管理';
         <input autocomplete="off" class="input_box" id="picker_search" type="text" placeholder="公开日期">
       </div>
       <!-- 来源 -->
-      <div class="search_input_box"  style="width:180px">
+      <div class="search_input_box" style="width:180px">
         <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
         <input autocomplete="off" type="text" placeholder="漏洞来源" ng-model="seach_data.source"
-          ng-focus="search_focus('source')" ng-blur="search_blur('source');" class="search_input"  style="width:180px" readonly>
+          ng-focus="search_focus('source')" ng-blur="search_blur('source');" class="search_input" style="width:180px"
+          readonly>
         <ul class="select_list_box select_list_box_height" ng-if="search_box_ul.source">
-          <li  title={{item.name}} ng-mousedown="search_choose_item(item.name,$index,'source');"
+          <li title={{item.name}} ng-mousedown="search_choose_item(item.name,$index,'source');"
             ng-repeat="item in loop_source track by $index">
             {{item.name}}
           </li>
@@ -74,7 +75,7 @@ $this->title = '漏洞情报管理';
       </li>
     </ul>
     <div class="search_toggle" ng-show="label_data.length > 0" style="width:140px;">
-      <a class="toggle" ng-class="{'active':toggleStatus}"  style="cursor:pointer;" ng-click="tog_count_change($event);">
+      <a class="toggle" ng-class="{'active':toggleStatus}" style="cursor:pointer;" ng-click="tog_count_change($event);">
         <span class="caret"></span>
         <span ng-show="!toggleStatus">展开</span><span ng-show="toggleStatus">收起</span>更多
       </a>
@@ -83,7 +84,7 @@ $this->title = '漏洞情报管理';
   <div class="loophole_table_content" ng-click="blur_input()">
     <table class="table table-striped table_th ng-cloak">
       <tr class="loophole_table_tr">
-        <th><input type="checkbox" class="ck_box" ng-click="selectAll($event)" ng-checked="isSelectedAll()"/></th>
+        <th><input type="checkbox" class="ck_box" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th>
         <th style="width:60px"></th>
         <th>情报标题</th>
         <th>情报来源</th>
@@ -96,7 +97,7 @@ $this->title = '漏洞情报管理';
       <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data track by $index"
         ng-click="detail(item)">
         <td><input type="checkbox" class="ck_box" name="selected" ng-checked="isSelected(item.id)"
-                ng-click="updateSelection($event,item.id)"/></td>
+            ng-click="updateSelection($event,item.id)" /></td>
         <td style="width:60px">
           <img src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
           <img src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
@@ -124,27 +125,29 @@ $this->title = '漏洞情报管理';
           <!--<img class="set_img_icon" ng-if="item.status=='0'" title="撤回" src="/images/set/sq_recall_o.png" alt="">-->
           <img class="set_img_icon" ng-click="edit_loop_box(item)" title="编辑" src="/images/set/sq_edit_i.png" alt="">
           <img class="set_img_icon" ng-click="delete(item.id)" title="删除" src="/images/set/sq_del_i.png" alt="">
-          <img class="set_img_icon" ng-if="item.status !='2'" ng-click="release(item.id, '2')" title="归档" src="/images/set/sq_file_1.png" alt="" alt="">
-          <img class="set_img_icon" ng-if="item.status =='2'" ng-click="release(item.id, '0')" title="取消归档" src="/images/set/sq_file_2.png" alt="" alt="">
+          <img class="set_img_icon" ng-if="item.status !='2'" ng-click="release(item.id, '2')" title="归档"
+            src="/images/set/sq_file_1.png" alt="" alt="">
+          <img class="set_img_icon" ng-if="item.status =='2'" ng-click="release(item.id, '0')" title="取消归档"
+            src="/images/set/sq_file_2.png" alt="" alt="">
         </td>
       </tr>
     </table>
 
     <!-- 批量操作 -->
-     <div>
-       <div class="search_input_box" style="width:140px">
-         <img src="/images/set/label_triangle_down_1.png" class="select_down_icon_1" alt="">
-         <input autocomplete="off" type="text" placeholder="批量操作" readonly ng-model="handle"
-           ng-focus="deletion = true" class="search_input" ng-blur="deletion = false"  style="width:156px;" >
-         <ul class="deletion_list_box" ng-if="deletion">
-           <li class="item" title={{item.name}} ng-mousedown="deletion_choose_item(item.name);"
-             ng-repeat="item in deletion_list track by $index">
-             {{item.name}}
-           </li>
-         </ul>
-       </div>
-       <button class="btn_deletion" ng-click="btn_deletion_box()">执行</button>
-     </div>
+    <div>
+      <div class="search_input_box" style="width:140px">
+        <img src="/images/set/label_triangle_down_1.png" class="select_down_icon_1" alt="">
+        <input autocomplete="off" type="text" placeholder="批量操作" readonly ng-model="handle" ng-focus="deletion = true"
+          class="search_input" ng-blur="deletion = false" style="width:156px;">
+        <ul class="deletion_list_box" ng-if="deletion">
+          <li class="item" title={{item.name}} ng-mousedown="deletion_choose_item(item.name);"
+            ng-repeat="item in deletion_list track by $index">
+            {{item.name}}
+          </li>
+        </ul>
+      </div>
+      <button class="btn_deletion" ng-click="btn_deletion_box()">执行</button>
+    </div>
     <p style="margin-top:20px;">
       <span class="loophole_result_length">共有<span ng-bind="pages.count"></span>条结果</span>
     </p>
@@ -238,7 +241,8 @@ $this->title = '漏洞情报管理';
               <input autocomplete="off" class="item_right_input" id="input_source_add" ng-model="add_item.sourse"
                 placeholder="请选择来源或按Enter键添加新来源" ng-keyup="add_source_mykey($event)" ng-focus="add_focus('source')"
                 ng-blur="add_blur('source');" ng-change="add_source_change(add_item.sourse)" type="text">
-              <ul class="select_list_box select_list_box_height select_list_margin" ng-if="pop_show.add_source_list" id="loop_source_add">
+              <ul class="select_list_box select_list_box_height select_list_margin" ng-if="pop_show.add_source_list"
+                id="loop_source_add">
                 <li ng-mousedown="choose_item(item.name,index,'source');"
                   ng-class="{'add_bg':tag_key_add.active_index == $index}"
                   ng-repeat="item in loop_source_add track by $index">
@@ -274,6 +278,33 @@ $this->title = '漏洞情报管理';
                 </div>
               </div>
             </div>
+          </div>
+          <!-- 验证信息 -->
+          <div class="contnet_item">
+            <div class="contnet_item_left">
+              <img src="/images/set/add_icon_2.png" alt="">
+              <span>验证信息:</span>
+            </div>
+            <div class="contnet_item_right">
+              <div class="tag_item" style="margin:0">
+                <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
+                <input autocomplete="off" type="text" placeholder="请选择验证信息" ng-model="add_item.verification"
+                  ng-focus="add_focus('verification')" ng-blur="add_blur('verification');" class="item_right_input"
+                  readonly>
+                      <img src="/images/set/closed_pop.png" alt="" ng-click="verification_add_cancel()"
+                class="item_right_time_icon_cancel">
+              </div>
+              <ul class="select_list_box select_list_margin" ng-if="pop_show.add_verification_list">
+                <li ng-mousedown="choose_item(item.name,$index,'verification');"
+                  ng-class="{'add_bg':tag_key_add.active_index == $index}"
+                  ng-repeat="item in add_item.verification_list track by $index">
+                  {{item.name}}
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div>
           </div>
           <!-- 漏洞描述 -->
           <div class="contnet_item">
@@ -388,7 +419,8 @@ $this->title = '漏洞情报管理';
                     ng-model='item.name' ng-focus="add_nvd_focus(index,item)" ng-blur="add_blur('NVD',index);"
                     class="item_right_input">
                   <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-                  <ul class="select_list_box select_list_box_height" style="margin-bottom:10px;"  id="{{'nvd'+index}}" ng-if="item.nvd_ul">
+                  <ul class="select_list_box select_list_box_height" style="margin-bottom:10px;" id="{{'nvd'+index}}"
+                    ng-if="item.nvd_ul">
                     <li ng-repeat="key in nvd_list" ng-class="{'add_bg':tag_key_add.active_index == $index}"
                       ng-mousedown="choose_nvd_item(key,index);">
                       {{key.cve}}
@@ -446,7 +478,7 @@ $this->title = '漏洞情报管理';
                 <input autocomplete="off" type="text" placeholder="请选择漏洞等级" ng-model="edit_item.level"
                   ng-focus="edit_focus('level')" ng-blur="edit_blur('level');" class="item_right_input" readonly>
               </div>
-              <ul class="select_list_box select_list_margin" ng-if="pop_show.edit_level_list" >
+              <ul class="select_list_box select_list_margin" ng-if="pop_show.edit_level_list">
                 <li ng-mousedown="choose_item_edit(item.name,$index,'level');"
                   ng-class="{'add_bg':tag_key_add.active_index == $index}"
                   ng-repeat="item in edit_item.level_list track by $index">
@@ -478,7 +510,8 @@ $this->title = '漏洞情报管理';
               <input autocomplete="off" class="item_right_input" id="input_source_edit" ng-model="edit_item.sourse"
                 placeholder="请选择来源或按Enter键添加新来源" ng-keyup="edit_source_mykey($event)" ng-focus="edit_focus('source')"
                 ng-blur="edit_blur('source');" ng-change="edit_source_change(edit_item.sourse)" type="text">
-              <ul class="select_list_box select_list_box_height select_list_margin" ng-if="pop_show.edit_source_list" id="loop_source_edit">
+              <ul class="select_list_box select_list_box_height select_list_margin" ng-if="pop_show.edit_source_list"
+                id="loop_source_edit">
                 <li ng-mousedown="choose_item_edit(item.name,index,'source');"
                   ng-class="{'add_bg':tag_key_add.active_index == $index}"
                   ng-repeat="item in loop_source_add track by $index">
@@ -625,7 +658,8 @@ $this->title = '漏洞情报管理';
                     ng-model='item.name' ng-model='item.name' ng-focus="edit_nvd_focus(index,item)"
                     ng-blur="edit_blur('NVD',index);" class="item_right_input">
                   <img src="/images/set/label_triangle_down.png" class="select_down_icon" alt="">
-                  <ul class="select_list_box select_list_box_height" style="margin-bottom:10px;" id="{{'nvd_edit'+index}}" ng-if="item.nvd_ul">
+                  <ul class="select_list_box select_list_box_height" style="margin-bottom:10px;"
+                    id="{{'nvd_edit'+index}}" ng-if="item.nvd_ul">
                     <li ng-repeat="key in nvd_list" ng-class="{'add_bg':tag_key_add.active_index == $index}"
                       ng-mousedown="choose_nvd_item_edit(key,index);">
                       {{key.cve}}
@@ -668,69 +702,69 @@ $this->title = '漏洞情报管理';
   </div>
 
 
-   <!-- 批量删除 -->
-   <div style="display: none;" id="cate_delete_box_del">
-      <div id="cate_delete_del">
-          <div class="cate_content">
-            <p class="cate_tip">请确认是否批量删除选中情报？</p>
-          </div>
-          <div class="cate_btn_delete_box">
-              <button class="cate_btn_ok" ng-click="cate_delete_del_ok()">确认</button>
-              <button class="cate_btn_cancel" ng-click="cate_delete_cancel();">取消</button>
-          </div>
+  <!-- 批量删除 -->
+  <div style="display: none;" id="cate_delete_box_del">
+    <div id="cate_delete_del">
+      <div class="cate_content">
+        <p class="cate_tip">请确认是否批量删除选中情报？</p>
       </div>
+      <div class="cate_btn_delete_box">
+        <button class="cate_btn_ok" ng-click="cate_delete_del_ok()">确认</button>
+        <button class="cate_btn_cancel" ng-click="cate_delete_cancel();">取消</button>
+      </div>
+    </div>
   </div>
 
   <!-- 批量发布 -->
   <div style="display: none;" id="cate_delete_box_pub">
-      <div id="cate_delete_pub">
-          <div class="cate_content">
-            <p class="cate_tip">请确认是否批量发布选中情报？</p>
-          </div>
-          <div class="cate_btn_delete_box">
-            <button class="cate_btn_ok" ng-click="cate_delete_pub_ok()">确认</button>
-            <button class="cate_btn_cancel" ng-click="cate_delete_cancel();">取消</button>
-          </div>
+    <div id="cate_delete_pub">
+      <div class="cate_content">
+        <p class="cate_tip">请确认是否批量发布选中情报？</p>
       </div>
+      <div class="cate_btn_delete_box">
+        <button class="cate_btn_ok" ng-click="cate_delete_pub_ok()">确认</button>
+        <button class="cate_btn_cancel" ng-click="cate_delete_cancel();">取消</button>
+      </div>
+    </div>
   </div>
 
   <!-- 批量撤回 -->
   <div style="display: none;" id="cate_delete_box_rec">
-      <div id="cate_delete_rec">
-        <div class="cate_content">
-          <p class="cate_tip">请确认是否批量撤回选中情报？</p>
-        </div>
-        <div class="cate_btn_delete_box">
-          <button class="cate_btn_ok" ng-click="cate_delete_rec_ok()">确认</button>
-          <button class="cate_btn_cancel" ng-click="cate_delete_cancel();">取消</button>
-        </div>
+    <div id="cate_delete_rec">
+      <div class="cate_content">
+        <p class="cate_tip">请确认是否批量撤回选中情报？</p>
       </div>
+      <div class="cate_btn_delete_box">
+        <button class="cate_btn_ok" ng-click="cate_delete_rec_ok()">确认</button>
+        <button class="cate_btn_cancel" ng-click="cate_delete_cancel();">取消</button>
+      </div>
+    </div>
   </div>
 
   <!-- 批量归档 -->
   <div style="display: none;" id="cate_delete_box_pla">
-      <div id="cate_delete_pla">
-        <div class="cate_content">
-          <p class="cate_tip">请确认是否批量归档选中情报？</p>
-        </div>
-        <div class="cate_btn_delete_box">
-          <button class="cate_btn_ok" ng-click="cate_delete_pla_ok()">确认</button>
-          <button class="cate_btn_cancel" ng-click="cate_delete_cancel();">取消</button>
-        </div>
+    <div id="cate_delete_pla">
+      <div class="cate_content">
+        <p class="cate_tip">请确认是否批量归档选中情报？</p>
       </div>
+      <div class="cate_btn_delete_box">
+        <button class="cate_btn_ok" ng-click="cate_delete_pla_ok()">确认</button>
+        <button class="cate_btn_cancel" ng-click="cate_delete_cancel();">取消</button>
+      </div>
+    </div>
   </div>
 
   <!-- 批量取消归档 -->
   <div style="display: none;" id="cate_delete_box_repla">
-      <div id="cate_delete_repla">
-        <div class="cate_content">
-          <p class="cate_tip">请确认是否批量取消归档选中情报？</p>
-        </div>
-        <div class="cate_btn_delete_box">
-          <button class="cate_btn_ok" ng-click="cate_delete_repla_ok()">确认</button>
-          <button class="cate_btn_cancel" ng-click="cate_delete_cancel();">取消</button>
-        </div>
+    <div id="cate_delete_repla">
+      <div class="cate_content">
+        <p class="cate_tip">请确认是否批量取消归档选中情报？</p>
       </div>
+      <div class="cate_btn_delete_box">
+        <button class="cate_btn_ok" ng-click="cate_delete_repla_ok()">确认</button>
+        <button class="cate_btn_cancel" ng-click="cate_delete_cancel();">取消</button>
+      </div>
+    </div>
   </div>
 </section>
 <script src="/js/controllers/loophole_intel.js"></script>

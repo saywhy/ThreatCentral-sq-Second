@@ -587,6 +587,7 @@ button:active {
   overflow-y: auto;
   height: 484px;
 }
+
 /*.td_operation{
   border: 1px solid red;
 }*/
@@ -741,7 +742,7 @@ button:active {
 }
 
 .contnet_item_left {
-  width: 140px;
+  width: 130px;
   font-family: PingFangSC-Medium;
   font-size: 14px;
   color: #666666;

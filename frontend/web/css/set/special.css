@@ -398,7 +398,8 @@ select {
   line-height: 28px;
   font-size: 12px;
 }
-.table_tr_title_1{
+
+.table_tr_title_1 {
   width: 240px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -408,9 +409,9 @@ select {
 /*.select_down_icon{
   visibility: hidden;
 }*/
-.ck_box{
-  width:14px;
-  height:14px;
+.ck_box {
+  width: 14px;
+  height: 14px;
   display: inline-block;
   text-align: center;
   vertical-align: middle;
@@ -418,7 +419,7 @@ select {
 }
 
 
-.ck_box::before{
+.ck_box::before {
   content: "";
   position: absolute;
   top: 0;
@@ -428,17 +429,18 @@ select {
   height: 100%;
   border: 1px solid #d9d9d9;
 }
-.ck_box:checked::before{
+
+.ck_box:checked::before {
   content: "\2713";
   background-color: #fff;
   position: absolute;
   top: 0;
   left: 0;
   line-height: 12px;
-  width:100%;
+  width: 100%;
   border: 1px solid #999;
   /*background-color: #2081ff;*/
-  color:#0070ff;
+  color: #0070ff;
   font-size: 12px;
   font-weight: bold;
 }
@@ -648,7 +650,7 @@ select {
 }
 
 .contnet_item_left {
-  width: 180px;
+  width: 130px;
   font-family: PingFangSC-Medium;
   font-size: 14px;
   color: #666666;
@@ -707,6 +709,7 @@ select {
   right: 10px;
   top: 15px;
 }
+
 .select_down_icon_1 {
   position: absolute;
   right: 0px;
@@ -899,8 +902,10 @@ th:nth-last-child(1) {
   border: none;
 }
 
-.label_edit_complate, .label_edit_complate:focus,
-.label_auto_complate, .label_auto_complate:focus{
+.label_edit_complate,
+.label_edit_complate:focus,
+.label_auto_complate,
+.label_auto_complate:focus {
   background-image: url("../../images/set/label_triangle_down.png");
   background-repeat: no-repeat;
   background-position: 96%;
@@ -1022,7 +1027,7 @@ th:nth-last-child(1) {
   background: #E0EEFF;
 }
 
-.btn_deletion{
+.btn_deletion {
   border: 1px solid #0070FF;
   font-family: PingFangSC-Regular;
   color: #0070FF;
@@ -1033,5 +1038,3 @@ th:nth-last-child(1) {
   margin-left: 16px;
   vertical-align: bottom;
 }
-
-

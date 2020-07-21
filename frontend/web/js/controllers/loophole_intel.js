@@ -91,6 +91,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         $scope.pop_show = {
             add: false,
             add_level_list: false,
+            add_verification_list: false,
             add_tag_category: false,
             add_tag_name: false,
             add_NVD_list: false,
@@ -309,6 +310,10 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         $scope.add_item.first_seen_time = ''
         $('#start_time_picker').val('');
     }
+    $scope.verification_add_cancel = function () {
+        $scope.add_item.verification = ''
+    }
+
     // 获取情报来源
     $scope.get_loophole_source = function (source) {
         source = source ? source : '';
@@ -468,15 +473,17 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 $scope.pages.pageNow = $scope.pages.pageNow * 1
                 $scope.pages.maxPage = $scope.pages.maxPage * 1
                 angular.forEach($scope.pages.data, function (item) {
-                    item.nvd_name = item.nvd.map(its => {return its.cve});
+                    item.nvd_name = item.nvd.map(its => {
+                        return its.cve
+                    });
 
-                    if(item.nvd_name.length == 0){
+                    if (item.nvd_name.length == 0) {
                         item.new_nvd_name = '';
                         item.new_nvd_name_title = '';
-                    }else if(item.nvd_name.length == 1){
+                    } else if (item.nvd_name.length == 1) {
                         item.new_nvd_name = item.nvd_name[0];
                         item.new_nvd_name_title = item.nvd_name[0];
-                    }else {
+                    } else {
                         item.new_nvd_name = item.nvd_name[0] + '...';
                         item.new_nvd_name_title = item.nvd_name.join(',');
                     }
@@ -744,6 +751,16 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     num: '高危'
                 },
             ],
+            verification_list: [{
+                    name: '已验证',
+                    num: '已验证'
+                },
+                {
+                    name: '未验证',
+                    num: '未验证'
+                },
+            ],
+            verification: '',
             affected: [{
                 name: '',
                 icon: true
@@ -1352,6 +1369,9 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             case 'level':
                 $scope.pop_show.add_level_list = true;
                 break;
+            case 'verification':
+                $scope.pop_show.add_verification_list = true;
+                break;
             case 'tag_category':
                 angular.forEach($scope.add_item.tag, function (item) {
                     item.category_ul = false;
@@ -1394,6 +1414,9 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         switch (name) {
             case 'level':
                 $scope.pop_show.add_level_list = false;
+                break;
+            case 'verification':
+                $scope.pop_show.add_verification_list = false;
                 break;
             case 'tag_category':
                 $scope.index_add = index
@@ -1438,6 +1461,9 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         switch (name) {
             case 'level':
                 $scope.add_item.level = data;
+                break;
+            case 'verification':
+                $scope.add_item.verification = data;
                 break;
             case 'source':
                 $scope.add_item.sourse = data;
@@ -2152,37 +2178,73 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
      * */
     $scope.deletion = false;
     $scope.handle = '';
-    $scope.deletion_list = [{name:'批量删除',en_name:'del'},
-        {name:'批量发布',en_name:'pub'},
-        {name:'批量撤回',en_name:'rec'},
-        {name:'批量归档',en_name:'pla'},
-        {name:'批量取消归档',en_name:'repla'}];
-    $scope.deletion_choose_item = function(val) {
+    $scope.deletion_list = [{
+            name: '批量删除',
+            en_name: 'del'
+        },
+        {
+            name: '批量发布',
+            en_name: 'pub'
+        },
+        {
+            name: '批量撤回',
+            en_name: 'rec'
+        },
+        {
+            name: '批量归档',
+            en_name: 'pla'
+        },
+        {
+            name: '批量取消归档',
+            en_name: 'repla'
+        }
+    ];
+    $scope.deletion_choose_item = function (val) {
         $scope.handle = val;
     };
 
     //执行事件
-    $scope.btn_deletion_box = function(){
+    $scope.btn_deletion_box = function () {
         // 删除情报
         var W = 552;
         var H = 248;
 
         let deletion = {};
 
-        if($scope.selected.length == 0){
+        if ($scope.selected.length == 0) {
             zeroModal.alert("请勾选需要批量操作的列表！");
-        }else {
-            if($scope.handle == '批量删除'){
-                deletion = {name:'批量删除情报', content:cate_delete_del, content_fa:cate_delete_box_del};
-            }else if($scope.handle == '批量发布'){
-                deletion = {name:'批量发布情报', content:cate_delete_pub, content_fa:cate_delete_box_pub};
-            }else if($scope.handle == '批量撤回'){
-                deletion = {name:'批量撤回情报', content:cate_delete_rec, content_fa:cate_delete_box_rec};
-            }else if($scope.handle == '批量归档'){
-                deletion = {name:'批量归档情报', content:cate_delete_pla, content_fa:cate_delete_box_pla};
-            }else if($scope.handle == '批量取消归档'){
-                deletion = {name:'批量取消归档情报', content:cate_delete_repla, content_fa:cate_delete_box_repla};
-            }else {
+        } else {
+            if ($scope.handle == '批量删除') {
+                deletion = {
+                    name: '批量删除情报',
+                    content: cate_delete_del,
+                    content_fa: cate_delete_box_del
+                };
+            } else if ($scope.handle == '批量发布') {
+                deletion = {
+                    name: '批量发布情报',
+                    content: cate_delete_pub,
+                    content_fa: cate_delete_box_pub
+                };
+            } else if ($scope.handle == '批量撤回') {
+                deletion = {
+                    name: '批量撤回情报',
+                    content: cate_delete_rec,
+                    content_fa: cate_delete_box_rec
+                };
+            } else if ($scope.handle == '批量归档') {
+                deletion = {
+                    name: '批量归档情报',
+                    content: cate_delete_pla,
+                    content_fa: cate_delete_box_pla
+                };
+            } else if ($scope.handle == '批量取消归档') {
+                deletion = {
+                    name: '批量取消归档情报',
+                    content: cate_delete_repla,
+                    content_fa: cate_delete_box_repla
+                };
+            } else {
                 zeroModal.alert("请选择批量操作！");
                 return false;
             }
@@ -2235,7 +2297,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             url: "/seting/loophole-intelligence-publish",
             data: {
                 id: $scope.selected,
-                status:'1'
+                status: '1'
             }
         }).then(
             function (data) {
@@ -2262,7 +2324,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             url: "/seting/loophole-intelligence-publish",
             data: {
                 id: $scope.selected,
-                status:'0'
+                status: '0'
             }
         }).then(
             function (data) {
@@ -2289,7 +2351,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             url: "/seting/loophole-intelligence-publish",
             data: {
                 id: $scope.selected,
-                status:'2'
+                status: '2'
             }
         }).then(
             function (data) {
@@ -2316,7 +2378,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             url: "/seting/loophole-intelligence-publish",
             data: {
                 id: $scope.selected,
-                status:'0'
+                status: '0'
             }
         }).then(
             function (data) {
@@ -2341,14 +2403,14 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
 
 
 //table状态
-myApp.filter('spe_status', function() { //可以注入依赖
-    return function(args){
+myApp.filter('spe_status', function () { //可以注入依赖
+    return function (args) {
         let val = '未发布';
-        if(args == '0'){
+        if (args == '0') {
             val = '未发布';
-        }else if (args == '1'){
+        } else if (args == '1') {
             val = '已发布';
-        }else if (args == '2'){
+        } else if (args == '2') {
             val = '已归档';
         }
         return val;
