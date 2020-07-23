@@ -1203,12 +1203,15 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             zeroModal.error('请输入公开日期');
             return false
         }
-        if ($scope.add_item.first_update_time == '') {
-            zeroModal.error('请输入更新时间');
-            return false
-        }
+
         if ($scope.add_item.sourse == '') {
             zeroModal.error('请选择情报来源');
+            return false
+        }
+
+
+        if ($scope.add_item.first_update_time == '') {
+            zeroModal.error('请输入更新时间');
             return false
         }
 
