@@ -2492,6 +2492,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             function () {}
         );
     }
+
     //批量归档确定
     $scope.cate_delete_pla_ok = function () {
         var loading = zeroModal.loading(4);

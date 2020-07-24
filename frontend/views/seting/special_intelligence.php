@@ -122,7 +122,7 @@ $this->title = '行业情报管理';
           <img class="set_img_icon" ng-click="delete(item.id)" title="删除" src="/images/set/sq_del_i.png" alt="">
 
           <img class="set_img_icon" ng-if="item.status !='2'" ng-click="release(item.id, '2')" title="归档" src="/images/set/sq_file_1.png" alt="" alt="">
-          <img class="set_img_icon" ng-if="item.status =='2'" ng-click="release(item.id, '0')" title="取消归档" src="/images/set/sq_file_2.png" alt="" alt="">
+          <img class="set_img_icon" ng-if="item.status =='2'" ng-click="release(item.id, '0')" title="取消归档" src="/images/set/sq_recall_i.png" alt="" alt="">
         </td>
       </tr>
     </table>
