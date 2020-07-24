@@ -794,7 +794,6 @@ button:active {
 }
 
 .detail_box {
-  margin-top: 5px;
   max-height: 150px;
   min-height: 42px;
   overflow-y: auto;

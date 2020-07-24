@@ -112,17 +112,35 @@ $this->title = '行业情报管理';
         <td style="width:150px">{{item.first_seen_time =='0' ?'': item.first_seen_time*1000 | date : 'yyyy-MM-dd'}}</td>
         <td style="width:100px">{{item.status | spe_status}}</td>
         <td class="td_operation th_id">
-          <img class="set_img_icon" ng-if="item.status=='0'" ng-click="release(item.id,'1')" title="发布"
+
+
+
+
+
+         <img class="set_img_icon" ng-if="item.status=='0'" ng-click="release(item.id,'1','发布')" title="发布"
             src="/images/set/sq_release_i.png" alt="">
-          <!--<img class="set_img_icon" ng-if="item.status!='0'" title="发布" src="/images/set/sq_release_o.png" alt="">-->
-          <img class="set_img_icon" ng-if="item.status!='0'" ng-click="release(item.id,'0')" title="撤回"
+
+          <img class="set_img_icon" ng-if="item.status=='2'" title="发布" src="/images/set/sq_release_o.png" alt="">
+
+          <img class="set_img_icon" ng-if="item.status=='1'" ng-click="release(item.id,'0','撤回')" title="撤回"
             src="/images/set/sq_recall_i.png" alt="" alt="">
-          <!--<img class="set_img_icon" ng-if="item.status=='0'" title="撤回" src="/images/set/sq_recall_o.png" alt="">-->
+
           <img class="set_img_icon" ng-click="edit_loop_box(item)" title="编辑" src="/images/set/sq_edit_i.png" alt="">
           <img class="set_img_icon" ng-click="delete(item.id)" title="删除" src="/images/set/sq_del_i.png" alt="">
 
-          <img class="set_img_icon" ng-if="item.status !='2'" ng-click="release(item.id, '2')" title="归档" src="/images/set/sq_file_1.png" alt="" alt="">
-          <img class="set_img_icon" ng-if="item.status =='2'" ng-click="release(item.id, '0')" title="取消归档" src="/images/set/sq_recall_i.png" alt="" alt="">
+          <img class="set_img_icon" ng-if="item.status =='0'" ng-click="release(item.id, '2','归档')" title="归档"
+            src="/images/set/sq_file_1.png" alt="" alt="">
+
+          <img class="set_img_icon" ng-if="item.status =='1'"  title="归档"
+            src="/images/set/sq_file_2.png" alt="" alt="">
+
+        <img class="set_img_icon" ng-if="item.status=='2'" ng-click="release(item.id,'0','取消归档')" title="取消归档"
+            src="/images/set/sq_recall_i.png" alt="" alt="">
+
+
+
+
+
         </td>
       </tr>
     </table>

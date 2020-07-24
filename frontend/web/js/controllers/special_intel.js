@@ -940,7 +940,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         );
     };
     // 发布情报
-    $scope.release = function (id, num) {
+    $scope.release = function (id, num, cn) {
         var loading = zeroModal.loading(4);
         $http({
             method: "put",
@@ -954,16 +954,36 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 zeroModal.close(loading);
                 if (data.data.status == 'success') {
                     $scope.get_page($scope.pageNow);
-                    if (num == '1') {
-                        zeroModal.success({
-                            overlayClose: true,
-                            content: '发布成功'
-                        });
-                    } else {
-                        zeroModal.success({
-                            overlayClose: true,
-                            content: '撤回成功'
-                        });
+                    switch (num) {
+                        case '0':
+                            if (cn == '撤回') {
+                                zeroModal.success({
+                                    overlayClose: true,
+                                    content: '撤回成功'
+                                });
+                            }
+                            if (cn == '取消归档') {
+                                zeroModal.success({
+                                    overlayClose: true,
+                                    content: '取消归档成功'
+                                });
+                            }
+                            break;
+                        case '1':
+                            zeroModal.success({
+                                overlayClose: true,
+                                content: '发布成功'
+                            });
+                            break;
+                        case '2':
+                            zeroModal.success({
+                                overlayClose: true,
+                                content: '归档成功'
+                            });
+                            break;
+
+                        default:
+                            break;
                     }
                 } else {
                     zeroModal.error(data.data.errorMessage);
@@ -1038,24 +1058,27 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
         setTimeout(function () {
 
-            if($scope.my_add_num > 0){
+            if ($scope.my_add_num > 0) {
 
                 $('.label_auto_complate').each(function (index, elem) {
                     let instance = $('#label_auto_complate_' + index).autocomplete('instance');
-                    if(instance){
+                    if (instance) {
                         $('#label_auto_complate_' + index).unbind('focus').unbind('blur').autocomplete('destroy');
                     }
                 });
 
             }
-            $scope.my_add_num ++;
+            $scope.my_add_num++;
 
             let flag_add = false;
 
             $('.label_auto_complate').each(function (index, elem) {
 
                 $scope.add_item.tag.filter((items) => {
-                    return Object.assign(items,{change_name:items.name,change_attr_id:items.label_id_attr})
+                    return Object.assign(items, {
+                        change_name: items.name,
+                        change_attr_id: items.label_id_attr
+                    })
                 })
 
                 let datas = $scope.add_item.tag[index].tag_name_list;
@@ -1109,7 +1132,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     $scope.add_item.old_name = $scope.add_item.tag[index].name;
                     $scope.add_item.old_id = $scope.add_item.tag[index].label_id_attr;
                     flag_add = false;
-                    $(this).autocomplete("search",'');
+                    $(this).autocomplete("search", '');
                     return false;
 
 
@@ -1117,14 +1140,14 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     var myInput = document.getElementById("label_auto_complate_" + index);
                     if (myInput == document.activeElement) {
                         console.log('11112222');
-                    }else{
-                        if(!flag_add){
-                            if(!$scope.add_item.tag[index].name == ''){
+                    } else {
+                        if (!flag_add) {
+                            if (!$scope.add_item.tag[index].name == '') {
                                 zeroModal.error('您未选中触发的标签名称列表，请选择！');
                                 $(this).val($scope.add_item.tag[index].change_name);
                                 $scope.add_item.tag[index].name = $scope.add_item.tag[index].change_name;
                                 $scope.add_item.tag[index].label_id_attr = $scope.add_item.tag[index].change_attr_id;
-                            }else {
+                            } else {
                                 $(this).val('');
                                 $scope.add_item.tag[index].name = '';
                                 $scope.add_item.tag[index].label_id_attr = [];
@@ -1148,24 +1171,27 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
         setTimeout(function () {
 
-            if($scope.my_edit_num > 0){
+            if ($scope.my_edit_num > 0) {
 
                 $('.label_edit_complate').each(function (index, elem) {
                     let instance = $('#edit_auto_complate_' + index).autocomplete('instance');
-                    if(instance){
+                    if (instance) {
                         $('#edit_auto_complate_' + index).unbind('focus').unbind('blur').autocomplete('destroy');
                     }
                 });
 
             }
-            $scope.my_edit_num ++;
+            $scope.my_edit_num++;
 
             let flag_edit = false;
 
             $('.label_edit_complate').each(function (index, elem) {
 
                 $scope.edit_item.tag.filter((items) => {
-                    return Object.assign(items,{change_name:items.name,change_attr_id:items.label_id_attr})
+                    return Object.assign(items, {
+                        change_name: items.name,
+                        change_attr_id: items.label_id_attr
+                    })
                 })
                 let datas = $scope.edit_item.tag[index].tag_name_list;
 
@@ -1210,20 +1236,20 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                     $scope.edit_item.old_name = $scope.edit_item.tag[index].name;
                     $scope.edit_item.old_id = $scope.edit_item.tag[index].label_id_attr;
                     flag_edit = false;
-                    $(this).autocomplete("search",'');
+                    $(this).autocomplete("search", '');
                     return false;
                 }).blur(function () {
                     var myInput = document.getElementById("edit_auto_complate_" + index);
                     if (myInput == document.activeElement) {
                         console.log('11112222');
-                    }else{
-                        if(!flag_edit){
-                            if(!$scope.edit_item.tag[index].name == ''){
+                    } else {
+                        if (!flag_edit) {
+                            if (!$scope.edit_item.tag[index].name == '') {
                                 zeroModal.error('您未选中触发的标签名称列表，请选择！');
                                 $(this).val($scope.edit_item.tag[index].change_name);
                                 $scope.edit_item.tag[index].name = $scope.edit_item.tag[index].change_name;
                                 $scope.edit_item.tag[index].label_id_attr = $scope.edit_item.tag[index].change_attr_id;
-                            }else {
+                            } else {
                                 $(this).val('');
                                 $scope.edit_item.tag[index].name = '';
                                 $scope.edit_item.tag[index].label_id_attr = [];
@@ -2209,41 +2235,77 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     }
 
     /**
-    * 批量删除
-    * */
+     * 批量删除
+     * */
     $scope.deletion = false;
     $scope.handle = '';
-    $scope.deletion_list = [{name:'批量删除',en_name:'del'},
-        {name:'批量发布',en_name:'pub'},
-        {name:'批量撤回',en_name:'rec'},
-        {name:'批量归档',en_name:'pla'},
-        {name:'批量取消归档',en_name:'repla'}];
-    $scope.deletion_choose_item = function(val) {
+    $scope.deletion_list = [{
+            name: '批量删除',
+            en_name: 'del'
+        },
+        {
+            name: '批量发布',
+            en_name: 'pub'
+        },
+        {
+            name: '批量撤回',
+            en_name: 'rec'
+        },
+        {
+            name: '批量归档',
+            en_name: 'pla'
+        },
+        {
+            name: '批量取消归档',
+            en_name: 'repla'
+        }
+    ];
+    $scope.deletion_choose_item = function (val) {
         $scope.handle = val;
     };
 
     //执行事件
-    $scope.btn_deletion_box = function(){
+    $scope.btn_deletion_box = function () {
         // 删除情报
         var W = 552;
         var H = 248;
 
         let deletion = {};
 
-        if($scope.selected.length == 0){
+        if ($scope.selected.length == 0) {
             zeroModal.alert("请勾选需要批量操作的列表！");
-        }else {
-            if($scope.handle == '批量删除'){
-                deletion = {name:'批量删除情报', content:cate_delete_del, content_fa:cate_delete_box_del};
-            }else if($scope.handle == '批量发布'){
-                deletion = {name:'批量发布情报', content:cate_delete_pub, content_fa:cate_delete_box_pub};
-            }else if($scope.handle == '批量撤回'){
-                deletion = {name:'批量撤回情报', content:cate_delete_rec, content_fa:cate_delete_box_rec};
-            }else if($scope.handle == '批量归档'){
-                deletion = {name:'批量归档情报', content:cate_delete_pla, content_fa:cate_delete_box_pla};
-            }else if($scope.handle == '批量取消归档'){
-                deletion = {name:'批量取消归档情报', content:cate_delete_repla, content_fa:cate_delete_box_repla};
-            }else {
+        } else {
+            if ($scope.handle == '批量删除') {
+                deletion = {
+                    name: '批量删除情报',
+                    content: cate_delete_del,
+                    content_fa: cate_delete_box_del
+                };
+            } else if ($scope.handle == '批量发布') {
+                deletion = {
+                    name: '批量发布情报',
+                    content: cate_delete_pub,
+                    content_fa: cate_delete_box_pub
+                };
+            } else if ($scope.handle == '批量撤回') {
+                deletion = {
+                    name: '批量撤回情报',
+                    content: cate_delete_rec,
+                    content_fa: cate_delete_box_rec
+                };
+            } else if ($scope.handle == '批量归档') {
+                deletion = {
+                    name: '批量归档情报',
+                    content: cate_delete_pla,
+                    content_fa: cate_delete_box_pla
+                };
+            } else if ($scope.handle == '批量取消归档') {
+                deletion = {
+                    name: '批量取消归档情报',
+                    content: cate_delete_repla,
+                    content_fa: cate_delete_box_repla
+                };
+            } else {
                 zeroModal.alert("请选择批量操作！");
                 return false;
             }
@@ -2292,12 +2354,20 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     //批量发布确定
     $scope.cate_delete_pub_ok = function () {
         var loading = zeroModal.loading(4);
+        var new_arry = []
+        $scope.pages.data.forEach(item => {
+            $scope.selected.forEach(id => {
+                if (item.id == id && item.status == '0') {
+                    new_arry.push(id)
+                }
+            });
+        });
         $http({
             method: "put",
             url: "/seting/special-intelligence-publish",
             data: {
-                id: $scope.selected,
-                status:'1'
+                id: new_arry,
+                status: '1'
             }
         }).then(
             function (data) {
@@ -2320,12 +2390,20 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     //批量撤回确定
     $scope.cate_delete_rec_ok = function () {
         var loading = zeroModal.loading(4);
+        var new_arry = []
+        $scope.pages.data.forEach(item => {
+            $scope.selected.forEach(id => {
+                if (item.id == id && item.status == '1') {
+                    new_arry.push(id)
+                }
+            });
+        });
         $http({
             method: "put",
             url: "/seting/special-intelligence-publish",
             data: {
-                id: $scope.selected,
-                status:'0'
+                id: new_arry,
+                status: '0'
             }
         }).then(
             function (data) {
@@ -2348,12 +2426,20 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     //批量归档确定
     $scope.cate_delete_pla_ok = function () {
         var loading = zeroModal.loading(4);
+        var new_arry = []
+        $scope.pages.data.forEach(item => {
+            $scope.selected.forEach(id => {
+                if (item.id == id && item.status == '0') {
+                    new_arry.push(id)
+                }
+            });
+        });
         $http({
             method: "put",
             url: "/seting/special-intelligence-publish",
             data: {
-                id: $scope.selected,
-                status:'2'
+                id: new_arry,
+                status: '2'
             }
         }).then(
             function (data) {
@@ -2376,12 +2462,20 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
     //批量取消归档确定
     $scope.cate_delete_repla_ok = function () {
         var loading = zeroModal.loading(4);
+        var new_arry = []
+        $scope.pages.data.forEach(item => {
+            $scope.selected.forEach(id => {
+                if (item.id == id && item.status == '2') {
+                    new_arry.push(id)
+                }
+            });
+        });
         $http({
             method: "put",
             url: "/seting/special-intelligence-publish",
             data: {
-                id: $scope.selected,
-                status:'0'
+                id: new_arry,
+                status: '0'
             }
         }).then(
             function (data) {
@@ -2406,17 +2500,16 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 });
 
 //table状态
-myApp.filter('spe_status', function() { //可以注入依赖
-    return function(args){
+myApp.filter('spe_status', function () { //可以注入依赖
+    return function (args) {
         let val = '未发布';
-        if(args == '0'){
+        if (args == '0') {
             val = '未发布';
-        }else if (args == '1'){
+        } else if (args == '1') {
             val = '已发布';
-        }else if (args == '2'){
+        } else if (args == '2') {
             val = '已归档';
         }
         return val;
     }
 });
-

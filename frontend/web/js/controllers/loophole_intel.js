@@ -622,8 +622,8 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                     var item_str = JSON.stringify($scope.edit_item_data);
                     $scope.edit_item_str = JSON.parse(item_str);
 
-                    if($scope.edit_item_str.update_time == '0' ||
-                        $scope.edit_item_str.update_time == 0){
+                    if ($scope.edit_item_str.update_time == '0' ||
+                        $scope.edit_item_str.update_time == 0) {
                         $scope.edit_item_str.update_time = '';
                     }
 
@@ -645,9 +645,9 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                             },
                         ],
                         verification_list: [{
-                            name: '已验证',
-                            num: '已验证'
-                        },
+                                name: '已验证',
+                                num: '已验证'
+                            },
                             {
                                 name: '未验证',
                                 num: '未验证'
@@ -903,7 +903,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             tag: [],
             label_category: [],
             first_seen_time: '',
-            first_update_time:'',
+            first_update_time: '',
             sourse: '',
             detail: '',
             treatment_measures: '',
@@ -1291,7 +1291,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         );
     };
     // 发布情报
-    $scope.release = function (id, num) {
+    $scope.release = function (id, num, cn) {
         // var loading = zeroModal.loading(4);
         $http({
             method: "put",
@@ -1304,17 +1304,38 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
             function (data) {
                 // zeroModal.close(loading);
                 if (data.data.status == 'success') {
-                    if (num == '1') {
-                        zeroModal.success({
-                            overlayClose: true,
-                            content: '发布成功'
-                        });
-                    } else {
-                        zeroModal.success({
-                            overlayClose: true,
-                            content: '撤回成功'
-                        });
+                    switch (num) {
+                        case '0':
+                            if (cn == '撤回') {
+                                zeroModal.success({
+                                    overlayClose: true,
+                                    content: '撤回成功'
+                                });
+                            }
+                            if (cn == '取消归档') {
+                                zeroModal.success({
+                                    overlayClose: true,
+                                    content: '取消归档成功'
+                                });
+                            }
+                            break;
+                        case '1':
+                            zeroModal.success({
+                                overlayClose: true,
+                                content: '发布成功'
+                            });
+                            break;
+                        case '2':
+                            zeroModal.success({
+                                overlayClose: true,
+                                content: '归档成功'
+                            });
+                            break;
+
+                        default:
+                            break;
                     }
+
                 } else {
                     zeroModal.error(data.data.errorMessage);
                 }
@@ -1324,21 +1345,21 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         );
     }
     // 删除情报
-   /* $scope.delete = function (id) {
-        var W = 552;
-        var H = 185;
-        var box = null;
-        box = zeroModal.confirm({
-            content: '删除情报',
-            width: W + "px",
-            height: H + "px",
-            ok: false,
-            cancel: false,
-            okFn: function () {
+    /* $scope.delete = function (id) {
+         var W = 552;
+         var H = 185;
+         var box = null;
+         box = zeroModal.confirm({
+             content: '删除情报',
+             width: W + "px",
+             height: H + "px",
+             ok: false,
+             cancel: false,
+             okFn: function () {
 
-            },
-        });
-    }*/
+             },
+         });
+     }*/
 
     // 删除情报
     $scope.delete = function (id) {
@@ -2440,12 +2461,23 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
     }
     //批量发布确定
     $scope.cate_delete_pub_ok = function () {
+        console.log($scope.selected);
+        console.log($scope.pages.data);
+        var new_arry = []
+        $scope.pages.data.forEach(item => {
+            $scope.selected.forEach(id => {
+                if (item.id == id && item.status == '0') {
+                    new_arry.push(id)
+                }
+            });
+        });
+
         var loading = zeroModal.loading(4);
         $http({
             method: "put",
             url: "/seting/loophole-intelligence-publish",
             data: {
-                id: $scope.selected,
+                id: new_arry,
                 status: '1'
             }
         }).then(
@@ -2468,11 +2500,21 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
     //批量撤回确定
     $scope.cate_delete_rec_ok = function () {
         var loading = zeroModal.loading(4);
+
+        var new_arry = []
+        $scope.pages.data.forEach(item => {
+            $scope.selected.forEach(id => {
+                if (item.id == id && item.status == '1') {
+                    new_arry.push(id)
+                }
+            });
+        });
+        console.log(new_arry);
         $http({
             method: "put",
             url: "/seting/loophole-intelligence-publish",
             data: {
-                id: $scope.selected,
+                id: new_arry,
                 status: '0'
             }
         }).then(
@@ -2496,11 +2538,19 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
     //批量归档确定
     $scope.cate_delete_pla_ok = function () {
         var loading = zeroModal.loading(4);
+        var new_arry = []
+        $scope.pages.data.forEach(item => {
+            $scope.selected.forEach(id => {
+                if (item.id == id && item.status == '0') {
+                    new_arry.push(id)
+                }
+            });
+        });
         $http({
             method: "put",
             url: "/seting/loophole-intelligence-publish",
             data: {
-                id: $scope.selected,
+                id: new_arry,
                 status: '2'
             }
         }).then(
@@ -2523,11 +2573,19 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
     //批量取消归档确定
     $scope.cate_delete_repla_ok = function () {
         var loading = zeroModal.loading(4);
+        var new_arry = []
+        $scope.pages.data.forEach(item => {
+            $scope.selected.forEach(id => {
+                if (item.id == id && item.status == '2') {
+                    new_arry.push(id)
+                }
+            });
+        });
         $http({
             method: "put",
             url: "/seting/loophole-intelligence-publish",
             data: {
-                id: $scope.selected,
+                id: new_arry,
                 status: '0'
             }
         }).then(
