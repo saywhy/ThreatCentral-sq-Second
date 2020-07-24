@@ -184,7 +184,7 @@ $this->title = '行业情报';
             </div>
             <div class="contnet_item_right">
               <div class="detail_box">
-                <p>{{label_item_data.detail}}</p>
+                <p style="padding: 10px 0;">{{label_item_data.detail}}</p>
               </div>
             </div>
           </div>

@@ -797,7 +797,7 @@ button:active {
   max-height: 150px;
   min-height: 42px;
   overflow-y: auto;
-  margin-top: 5px;
+  /*margin-top: 5px;*/
 }
 
 .detail_box::-webkit-scrollbar-track-piece {

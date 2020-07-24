@@ -218,9 +218,9 @@ $this->title = '漏洞情报';
               <img src="/images/set/add_icon_6.png" alt="">
               <span>漏洞描述:</span>
             </div>
-            <div class="contnet_item_right" style="padding-top: 3px;">
+            <div class="contnet_item_right">
               <div class="detail_box">
-                <p>{{label_item_data.detail}}</p>
+                <p style="padding: 8px 0;">{{label_item_data.detail}}</p>
               </div>
             </div>
           </div>
@@ -229,9 +229,9 @@ $this->title = '漏洞情报';
               <img src="/images/loophole/sp8.png" alt="">
               <span>建议处理措施:</span>
             </div>
-            <div class="contnet_item_right" style="padding-top: 3px;">
+            <div class="contnet_item_right">
               <div class="detail_box">
-                <p>{{label_item_data.treatment_measures}}</p>
+                <p style="padding: 8px 0;">{{label_item_data.treatment_measures}}</p>
               </div>
             </div>
           </div>
