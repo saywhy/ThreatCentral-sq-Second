@@ -86,9 +86,9 @@ $this->title = '行业情报管理';
     <table class="table table-striped  table_th ng-cloak">
       <tr class="loophole_table_tr">
         <th><input type="checkbox" class="ck_box" ng-click="selectAll($event)" ng-checked="isSelectedAll()"/></th>
-        <th style="width:60px"></th>
+        <th style="width:50px"></th>
         <th class="table_tr_title_1">情报标题</th>
-        <th>情报来源</th>
+        <th class="table_tr_title_2">情报来源</th>
         <th class="tag_th">标签</th>
         <th class="th_time" style="width:150px">日期</th>
         <th style="width:100px">状态</th>
@@ -97,13 +97,13 @@ $this->title = '行业情报管理';
       <tr class="loophole_table_tr" style="cursor: pointer;" ng-repeat="item in pages.data track by $index"
         ng-click="detail(item)">
         <td><input type="checkbox" class="ck_box" name="selected" ng-checked="isSelected(item.id)" ng-click="updateSelection($event,item.id)"/></td>
-        <td style="width:60px">
+        <td style="width:50px">
           <img src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
           <img src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
           <img src="/images/alert/l.png" ng-if="item.level === '低'" alt="">
         </td>
         <td class="table_tr_title_1" ng-click="edit_loop_box(item)" ng-bind="item.title" ng-attr-title="{{item.title}}"></td>
-        <td ng-bind="item.sourse" ng-attr-title="{{item.sourse}}"></td>
+        <td class="table_tr_title_2" ng-bind="item.sourse" ng-attr-title="{{item.sourse}}"></td>
         <td ng-attr-title="{{item.label_title}}">
           <button class="btn_loophole" ng-repeat="it in item.label_name">
             {{it}}

@@ -141,7 +141,8 @@ button:active {
 }
 
 .tag_th {
-  width: 260px;
+  /*width: 260px;*/
+  flex: 1;
 }
 
 .loophole_result_length {
@@ -400,12 +401,19 @@ select {
 }
 
 .table_tr_title_1 {
-  width: 240px;
+  /*width: 160px;*/
+  flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
+.table_tr_title_2{
+  /*width: 160px;*/
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 /*.select_down_icon{
   visibility: hidden;
 }*/

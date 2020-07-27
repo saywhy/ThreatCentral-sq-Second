@@ -85,9 +85,9 @@ $this->title = '漏洞情报管理';
     <table class="table table-striped table_th ng-cloak">
       <tr class="loophole_table_tr">
         <th><input type="checkbox" class="ck_box" ng-click="selectAll($event)" ng-checked="isSelectedAll()" /></th>
-        <th style="width:60px"></th>
-        <th>情报标题</th>
-        <th>情报来源</th>
+        <th style="width:50px"></th>
+        <th class="table_tr_title_1">情报标题</th>
+        <th class="table_tr_title_2">情报来源</th>
         <th style="width:180px">CVE</th>
         <th class="tag_th">标签</th>
         <th style="width:150px" class="th_time">公开日期</th>
@@ -98,15 +98,15 @@ $this->title = '漏洞情报管理';
         ng-click="detail(item)">
         <td><input type="checkbox" class="ck_box" name="selected" ng-checked="isSelected(item.id)"
             ng-click="updateSelection($event,item.id)" /></td>
-        <td style="width:60px">
+        <td style="width:50px">
           <img src="/images/alert/h.png" ng-if="item.level === '高'" alt="">
           <img src="/images/alert/m.png" ng-if="item.level === '中'" alt="">
           <img src="/images/alert/l.png" ng-if="item.level === '低'" alt="">
         </td>
-        <td>
+        <td class="table_tr_title_1">
           <span ng-bind="item.title" ng-attr-title="{{item.detail}}" ng-click="edit_loop_box(item)"> </span>
         </td>
-        <td ng-bind="item.sourse"></td>
+        <td class="table_tr_title_2" ng-bind="item.sourse"></td>
         <td style="width:180px" ng-bind="item.new_nvd_name" ng-attr-title="{{item.new_nvd_name_title}}"></td>
         <td ng-attr-title="{{item.label_title}}">
           <button class="btn_loophole" ng-repeat="it in item.label_name">

@@ -140,7 +140,24 @@ color: #333;
 }
 
 .tag_th {
-width: 260px;
+/*width: 260px;*/
+    flex: 1;
+}
+
+
+.table_tr_title_1 {
+    /*width: 160px;*/
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.table_tr_title_2{
+    /*width: 160px;*/
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .loophole_result_length {
