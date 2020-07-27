@@ -2353,15 +2353,26 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
     //批量发布确定
     $scope.cate_delete_pub_ok = function () {
-        var loading = zeroModal.loading(4);
         var new_arry = []
+        var select_arry = []
         $scope.pages.data.forEach(item => {
             $scope.selected.forEach(id => {
+                if (item.id == id) {
+                    select_arry.push(item.status)
+                }
                 if (item.id == id && item.status == '0') {
                     new_arry.push(id)
                 }
             });
         });
+        if (new_arry.length == 0) {
+            zeroModal.closeAll();
+            zeroModal.error({
+                content: '您选择的情报无法更改状态'
+            });
+            return false
+        }
+        var loading = zeroModal.loading(4);
         $http({
             method: "put",
             url: "/seting/special-intelligence-publish",
@@ -2375,10 +2386,19 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 if (data.data.status == 'success') {
                     zeroModal.closeAll();
                     $scope.get_page($scope.pageNow);
-                    zeroModal.success({
-                        overlayClose: true,
-                        content: '批量发布成功'
-                    });
+                    console.log(select_arry);
+                    if (select_arry.indexOf("2") != -1) {
+                        zeroModal.success({
+                            overlayClose: true,
+                            content: '发布成功,您选择的情报包含无法更改状态的条目'
+                        });
+                    } else {
+                        zeroModal.success({
+                            overlayClose: true,
+                            content: '批量发布成功'
+                        });
+
+                    }
                 } else {
                     zeroModal.error(data.data.errorMessage);
                 }
@@ -2389,15 +2409,26 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
     //批量撤回确定
     $scope.cate_delete_rec_ok = function () {
-        var loading = zeroModal.loading(4);
         var new_arry = []
+        var select_arry = []
         $scope.pages.data.forEach(item => {
             $scope.selected.forEach(id => {
+                if (item.id == id) {
+                    select_arry.push(item.status)
+                }
                 if (item.id == id && item.status == '1') {
                     new_arry.push(id)
                 }
             });
         });
+        if (new_arry.length == 0) {
+            zeroModal.closeAll();
+            zeroModal.error({
+                content: '您选择的情报无法更改状态'
+            });
+            return false
+        }
+        var loading = zeroModal.loading(4);
         $http({
             method: "put",
             url: "/seting/special-intelligence-publish",
@@ -2411,10 +2442,18 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 if (data.data.status == 'success') {
                     zeroModal.closeAll();
                     $scope.get_page($scope.pageNow);
-                    zeroModal.success({
-                        overlayClose: true,
-                        content: '批量撤回成功'
-                    });
+
+                    if (select_arry.indexOf("2") != -1) {
+                        zeroModal.success({
+                            overlayClose: true,
+                            content: '撤回成功,您选择的情报包含无法更改状态的条目'
+                        });
+                    } else {
+                        zeroModal.success({
+                            overlayClose: true,
+                            content: '批量撤回成功'
+                        });
+                    }
                 } else {
                     zeroModal.error(data.data.errorMessage);
                 }
@@ -2425,15 +2464,27 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
     //批量归档确定
     $scope.cate_delete_pla_ok = function () {
-        var loading = zeroModal.loading(4);
         var new_arry = []
+        var select_arry = []
         $scope.pages.data.forEach(item => {
             $scope.selected.forEach(id => {
+                if (item.id == id) {
+                    select_arry.push(item.status)
+                }
                 if (item.id == id && item.status == '0') {
                     new_arry.push(id)
                 }
             });
         });
+        if (new_arry.length == 0) {
+            zeroModal.closeAll();
+            zeroModal.error({
+                content: '您选择的情报无法更改状态'
+            });
+            return false
+        }
+        var loading = zeroModal.loading(4);
+
         $http({
             method: "put",
             url: "/seting/special-intelligence-publish",
@@ -2447,10 +2498,18 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 if (data.data.status == 'success') {
                     zeroModal.closeAll();
                     $scope.get_page($scope.pageNow);
-                    zeroModal.success({
-                        overlayClose: true,
-                        content: '批量归档成功'
-                    });
+
+                    if (select_arry.indexOf("1") != -1) {
+                        zeroModal.success({
+                            overlayClose: true,
+                            content: '归档成功,您选择的情报包含无法更改状态的条目'
+                        });
+                    } else {
+                        zeroModal.success({
+                            overlayClose: true,
+                            content: '批量归档成功'
+                        });
+                    }
                 } else {
                     zeroModal.error(data.data.errorMessage);
                 }
@@ -2461,15 +2520,28 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
 
     //批量取消归档确定
     $scope.cate_delete_repla_ok = function () {
-        var loading = zeroModal.loading(4);
         var new_arry = []
+        var select_arry = []
+
         $scope.pages.data.forEach(item => {
             $scope.selected.forEach(id => {
+                if (item.id == id) {
+                    select_arry.push(item.status)
+                }
                 if (item.id == id && item.status == '2') {
                     new_arry.push(id)
                 }
             });
         });
+        if (new_arry.length == 0) {
+            zeroModal.close(loading);
+            zeroModal.closeAll();
+            zeroModal.error({
+                content: '您选择的情报无法更改状态'
+            });
+            return false
+        }
+        var loading = zeroModal.loading(4);
         $http({
             method: "put",
             url: "/seting/special-intelligence-publish",
@@ -2483,10 +2555,18 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 if (data.data.status == 'success') {
                     zeroModal.closeAll();
                     $scope.get_page($scope.pageNow);
-                    zeroModal.success({
-                        overlayClose: true,
-                        content: '批量取消归档成功'
-                    });
+
+                    if (select_arry.indexOf("1") != -1) {
+                        zeroModal.success({
+                            overlayClose: true,
+                            content: '取消归档成功,您选择的情报包含无法更改状态的条目'
+                        });
+                    } else {
+                        zeroModal.success({
+                            overlayClose: true,
+                            content: '批量取消归档成功'
+                        });
+                    }
                 } else {
                     zeroModal.error(data.data.errorMessage);
                 }
