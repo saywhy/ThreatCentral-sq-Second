@@ -901,7 +901,7 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         $scope.NVD_Array_cn = $scope.arrayUnique2(NVD_Array, 'id')
 
         angular.forEach($scope.add_item.tag, function (item, index) {
-            if (item.label_id_attr.length > 0) {
+            if (item.label_id_attr.length > 0 && item.name != '') {
                 params_edit.label_id_attr = [...params_edit.label_id_attr, ...item.label_id_attr];
             }
         })
@@ -1329,16 +1329,19 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
         })
         $scope.params_edit_cn = [];
         $scope.params_edit_cn = $scope.arrayUnique2(params_edit.nvd, 'id')
+        console.log($scope.edit_item.tag);
         angular.forEach($scope.edit_item.tag, function (item, index) {
             if (item.name != '') {
                 params_edit.label_id.push(item.id * 1)
             }
-            if (item.label_id_attr.length > 0) {
+            if (item.label_id_attr.length > 0 && item.name != '') {
                 params_edit.label_id_attr = [...params_edit.label_id_attr, ...item.label_id_attr];
             }
         })
         var loading = zeroModal.loading(4);
         params_edit.label_id_attr = Array.from(new Set(params_edit.label_id_attr));
+        console.log(params_edit.label_id_attr);
+
         if ($scope.edit_item.type == 'auto') {
             var params = {
                 id: $scope.edit_item.id,
@@ -1846,6 +1849,8 @@ myApp.controller("specialIntelCtrl", function ($scope, $http, $filter) {
                 }
                 break;
             case 'tag':
+                console.log($scope.edit_item.tag);
+
                 if ($scope.edit_item.tag.length == 1) {
                     $scope.edit_item.tag[0].name = ''
                     return false

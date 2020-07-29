@@ -1243,7 +1243,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
         $scope.NVD_Array_cn = $scope.arrayUnique2(NVD_Array, 'id');
 
         angular.forEach($scope.add_item.tag, function (item, index) {
-            if (item.label_id_attr.length > 0) {
+            if (item.label_id_attr.length > 0 && item.name != '') {
                 params_edit.label_id_attr = [...params_edit.label_id_attr, ...item.label_id_attr];
             }
         })
@@ -1478,7 +1478,7 @@ myApp.controller("loopholeIntelCtrl", function ($scope, $http) {
                 params_edit.label_name.push(item.name)
                 // $scope.edit_item.tag[index].label_id_attr.push(item.name);
             }
-            if (item.label_id_attr.length > 0) {
+            if (item.label_id_attr.length > 0 && item.name != '') {
                 params_edit.label_id_attr = [...params_edit.label_id_attr, ...item.label_id_attr];
             }
         })
