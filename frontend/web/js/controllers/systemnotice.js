@@ -47,8 +47,9 @@ myApp.controller("systemnoticeCtrl", function ($scope, $http, $filter) {
                 $scope.email_true.system = $scope.email.system;
                 $scope.email_true.dark_net = $scope.email.dark_net;
                 $scope.email_true.intelligence = $scope.email.intelligence;
-                if ($scope.email.alertEmail && $scope.email.alertEmail != "") {
-                    $scope.input_list = [];
+                console.log($scope.email);
+                $scope.input_list = [];
+                if ($scope.email.alertEmail != "") {
                     $scope.alertEmail_list = $scope.email.alertEmail.split(";");
                     if ($scope.alertEmail_list.length == 1) {
                         angular.forEach($scope.alertEmail_list, function (item, index) {
@@ -70,11 +71,13 @@ myApp.controller("systemnoticeCtrl", function ($scope, $http, $filter) {
                             $scope.input_list.push(obj);
                         });
                     }
-                } else if ($scope.email.alertEmail && $scope.email.alertEmail == "") {
+                }
+                if ($scope.email.alertEmail == "") {
                     $scope.input_list = [{
                         name: "",
                         icon: true
                     }];
+                    console.log($scope.input_list);
                 }
             },
             function err(rsp) {}
@@ -92,10 +95,10 @@ myApp.controller("systemnoticeCtrl", function ($scope, $http, $filter) {
                 $scope.rqs_data_alertEmail_list.push(item.name);
             }
         });
-        if ($scope.rqs_data_alertEmail_list.length == 0) {
-            zeroModal.error("请输入收件邮箱地址");
-            return;
-        }
+        // if ($scope.rqs_data_alertEmail_list.length == 0) {
+        //     zeroModal.error("请输入收件邮箱地址");
+        //     return;
+        // }
         console.log($scope.rqs_data_alertEmail_list.join(";"));
         var rqs_data = {
             alertEmail: $scope.rqs_data_alertEmail_list.join(";"),
