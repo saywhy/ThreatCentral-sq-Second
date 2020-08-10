@@ -148,7 +148,7 @@ myApp.controller("PrototypeCtrl", function ($scope, $http, $filter) {
                             } else {
                                 obj.type = "green";
                             }
-                            if ($scope.prototype_data[k].prototypes[item].config.attributes) {
+                            if ($scope.prototype_data[k].prototypes[item].config && $scope.prototype_data[k].prototypes[item].config.attributes) {
                                 if (
                                     $scope.prototype_data[k].prototypes[item].config.attributes
                                     .confidence
@@ -477,13 +477,23 @@ myApp.filter('source_filter_red', function () {
                 case 'hoohoolab':
                     array.push(item);
                     break;
-                case 'knownsec':
+                case "knownsec":
                     array.push(item);
                     break;
                 default:
                     break;
             }
         })
+        angular.forEach(list, function (item) {
+            switch (item.key) {
+                case "fromsql":
+                    array.push(item);
+                    break;
+                default:
+                    break;
+            }
+        })
+
         return array;
     }
 });
